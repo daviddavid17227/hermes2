@@ -1,0 +1,24 @@
+[
+  {
+    "id": "nfl_2026_w1_bal_kc",
+    "sport": "NFL",
+    "week": 1,
+    "title": "Ravens vs Chiefs",
+    "start_time": "2026-09-10T20:20:00Z",
+    "odds": {
+      "team_1": "BAL +3",
+      "team_2": "KC -3"
+    }
+  },
+  {
+    "id": "cfb_2026_w1_nd_tam",
+    "sport": "CFB",
+    "week": 1,
+    "title": "Notre Dame vs Texas A&M",
+    "start_time": "2026-08-31T19:30:00Z",
+    "odds": {
+      "team_1": "ND +2.5",
+      "team_2": "TAM -2.5"
+    }
+  }
+]
