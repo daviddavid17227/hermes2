@@ -5,7 +5,7 @@
 - [x] Linear-style 1px shimmer borders
 - [x] 12-Column Grid Alignment (24px gutters)
 - [x] Manual Kerning pass (H1/H2)
-- [ ] **Multi-viewport verification** (Critical: Desktop, iPad, Mobile 390x844)
+- [x] **Multi-viewport verification** (Critical: Desktop, iPad, Mobile 390x844)
 
 ## 🟡 Phase 2: The Gameplay Engine (Wager/Reconciliation)
 - [ ] **Matchup API Integration:** Pulling live lines for NFL, CFB (W1-4), MLB, NBA, NHL, PGA.
