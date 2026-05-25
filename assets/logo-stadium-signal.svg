@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sports Raise stadium signal logo">
+  <defs>
+    <linearGradient id="sr-stadium-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1178FF"/>
+      <stop offset="0.6" stop-color="#18C7FF"/>
+      <stop offset="1" stop-color="#1BCF8F"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="104" height="104" rx="28" fill="#07182A"/>
+  <path d="M30 78c7-22 25-35 48-39" fill="none" stroke="url(#sr-stadium-gradient)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M31 91h66" stroke="#F4B743" stroke-width="8" stroke-linecap="round"/>
+  <path d="M38 76h52M47 64h34" stroke="rgba(255,255,255,.22)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="82" cy="38" r="8" fill="#68F2B9"/>
+  <path d="M82 38l17-12" stroke="#FFE08A" stroke-width="6" stroke-linecap="round"/>
+</svg>

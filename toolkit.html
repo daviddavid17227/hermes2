@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Raise | Marketing Assets Toolkit</title>
+  <style>
+    :root {
+      --night: #020814;
+      --navy: #061424;
+      --elevated: #0a2036;
+      --ink: #07182a;
+      --text: #f6fbff;
+      --muted-dark: #aab9c8;
+      --muted: #b8c3cf;
+      --line-dark: rgba(198, 221, 242, .15);
+      --blue: #1178ff;
+      --cyan: #18c7ff;
+      --emerald: #1bcf8f;
+      --mint: #68f2b9;
+      --gold: #f4b743;
+      --cream: #ffe08a;
+      --white: #ffffff;
+      --max: 1180px;
+      --radius: 24px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--night);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin-top: 0; }
+    p { line-height: 1.65; }
+
+    .page {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 5%, rgba(24, 199, 255, .25), transparent 31%),
+        radial-gradient(ellipse at 18% 26%, rgba(27, 207, 143, .13), transparent 26%),
+        radial-gradient(ellipse at 88% 70%, rgba(244, 183, 67, .11), transparent 24%),
+        linear-gradient(180deg, #020814 0%, #061424 48%, #020814 100%);
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .28;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(115deg, transparent 0 20%, rgba(255,255,255,.1) 20.5%, transparent 22.5% 42%, rgba(255,255,255,.06) 42.5%, transparent 44.5%);
+      background-size: 52px 52px, 52px 52px, 100% 100%;
+      mask-image: linear-gradient(180deg, #000, transparent 90%);
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 20;
+      background: linear-gradient(180deg, rgba(2, 8, 20, .95), rgba(2, 8, 20, .72));
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      font-weight: 780;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      box-shadow: 0 0 36px rgba(24, 199, 255, .28);
+    }
+
+    .brand span {
+      font-size: 1.03rem;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      gap: 22px;
+      color: rgba(246, 251, 255, .72);
+      font-size: .92rem;
+      font-weight: 680;
+      line-height: 1;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 14px 20px;
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff 0%, var(--cyan) 48%, #0aa8ff 100%);
+      box-shadow: 0 22px 56px rgba(24, 199, 255, .32), 0 0 0 1px rgba(255, 255, 255, .34) inset;
+      font-size: .96rem;
+      font-weight: 760;
+      line-height: 1;
+      white-space: nowrap;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 28px 70px rgba(24, 199, 255, .36), 0 0 0 1px rgba(255, 255, 255, .42) inset;
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+    }
+
+    .button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      padding: 82px 0 62px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(420px, .74fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-grid > * { min-width: 0; }
+
+    .eyebrow,
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #baf4ff;
+      font-size: .76rem;
+      font-weight: 820;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .section-kicker::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 24px rgba(27, 207, 143, .86);
+    }
+
+    h1 {
+      max-width: 11.6ch;
+      margin: 18px 0 22px;
+      font-size: clamp(3.55rem, 7vw, 6.8rem);
+      line-height: 1.17;
+      letter-spacing: 0;
+      font-weight: 720;
+      text-wrap: balance;
+    }
+
+    .no-widow { white-space: nowrap; }
+
+    .hero-lead {
+      max-width: 660px;
+      margin-bottom: 0;
+      color: rgba(246, 251, 255, .84);
+      font-size: clamp(1.08rem, 1.45vw, 1.25rem);
+      line-height: 1.64;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .toolkit-console {
+      position: relative;
+      min-height: 520px;
+      border-radius: 34px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+        rgba(255,255,255,.03);
+      box-shadow: 0 38px 110px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.1);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .toolkit-console::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border-radius: 26px;
+      background:
+        linear-gradient(145deg, rgba(17,120,255,.22), transparent 42%),
+        linear-gradient(315deg, rgba(244,183,67,.15), transparent 38%),
+        rgba(2,8,20,.56);
+    }
+
+    .console-top,
+    .console-card,
+    .console-feed { position: relative; z-index: 2; }
+
+    .console-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: rgba(3,13,26,.78);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .console-top strong,
+    .console-card strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #061424;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+      font-size: .78rem;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 18px rgba(27, 207, 143, .72);
+    }
+
+    .console-feed {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .console-card {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 13px;
+      align-items: center;
+      min-height: 104px;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(3,13,26,.78);
+      box-shadow: 0 20px 54px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .console-card svg {
+      width: 46px;
+      height: 46px;
+      padding: 12px;
+      border-radius: 16px;
+      color: #031121;
+      background: linear-gradient(135deg, #ffffff, #b8efff 45%, var(--cyan));
+      box-shadow: 0 16px 38px rgba(17,120,255,.24);
+    }
+
+    .console-card span {
+      display: block;
+      margin-top: 6px;
+      color: rgba(246,251,255,.7);
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    .section {
+      position: relative;
+      z-index: 2;
+      padding: 74px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .84fr) minmax(300px, .44fr);
+      gap: 42px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    h2 {
+      max-width: 850px;
+      margin: 12px 0 0;
+      font-size: clamp(2.35rem, 5vw, 4.8rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 700;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: rgba(246,251,255,.74);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .asset-card {
+      position: relative;
+      min-width: 0;
+      border-radius: 28px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
+        rgba(2,8,20,.68);
+      box-shadow: 0 28px 90px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+
+    .asset-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% 24% auto -16%;
+      height: 260px;
+      background: linear-gradient(90deg, transparent, rgba(24,199,255,.18), rgba(27,207,143,.13), transparent);
+      filter: blur(28px);
+      transform: rotate(-10deg);
+      pointer-events: none;
+    }
+
+    .asset-meta,
+    .email-preview,
+    .social-frame,
+    .widget-preview { position: relative; z-index: 2; }
+
+    .asset-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .asset-meta h3 {
+      margin: 0;
+      font-size: 1.28rem;
+      line-height: 1.2;
+      font-weight: 730;
+    }
+
+    .asset-meta p {
+      margin: 7px 0 0;
+      color: rgba(246,251,255,.7);
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+
+    .asset-tag {
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: #baf4ff;
+      background: rgba(24,199,255,.1);
+      border: 1px solid rgba(24,199,255,.24);
+      font-size: .72rem;
+      font-weight: 820;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .email-preview {
+      overflow: hidden;
+      border-radius: 20px;
+      color: var(--ink);
+      background: #f5f8fb;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+
+    .email-bar {
+      display: flex;
+      gap: 7px;
+      padding: 12px 14px;
+      background: #dfe8f2;
+      border-bottom: 1px solid rgba(7,24,42,.08);
+    }
+
+    .email-bar span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(7,24,42,.22);
+    }
+
+    .email-body {
+      padding: 22px;
+      background:
+        radial-gradient(ellipse at 90% 0%, rgba(24,199,255,.16), transparent 42%),
+        #ffffff;
+    }
+
+    .email-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      font-size: .82rem;
+      font-weight: 820;
+    }
+
+    .email-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+    }
+
+    .email-body h4 {
+      margin: 26px 0 10px;
+      color: var(--ink);
+      font-size: clamp(1.68rem, 3vw, 2.4rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 760;
+    }
+
+    .email-body p {
+      margin: 0 0 16px;
+      color: #526173;
+      font-size: .98rem;
+      line-height: 1.58;
+    }
+
+    .email-cta {
+      display: inline-flex;
+      margin-top: 4px;
+      padding: 12px 15px;
+      border-radius: 999px;
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff, var(--cyan) 52%, #0aa8ff);
+      font-weight: 820;
+      font-size: .9rem;
+    }
+
+    .email-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .email-stats div {
+      min-height: 78px;
+      padding: 12px;
+      border-radius: 15px;
+      background: #eef5fb;
+      border: 1px solid rgba(7,24,42,.08);
+    }
+
+    .email-stats strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.1rem;
+    }
+
+    .email-stats span {
+      display: block;
+      margin-top: 4px;
+      color: #64758a;
+      font-size: .75rem;
+      font-weight: 680;
+      line-height: 1.3;
+    }
+
+    .social-card { display: grid; }
+
+    .social-frame {
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      min-height: 0;
+      display: grid;
+      overflow: hidden;
+      border-radius: 26px;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 28px 80px rgba(0,0,0,.34);
+      background:
+        radial-gradient(ellipse at 50% 22%, rgba(24,199,255,.22), transparent 36%),
+        linear-gradient(155deg, #071423, #020814 68%);
+    }
+
+    .matchup-frame {
+      position: relative;
+      padding: 28px;
+      place-items: stretch;
+    }
+
+    .matchup-frame::before {
+      content: "";
+      position: absolute;
+      left: 11%;
+      right: 11%;
+      top: 23%;
+      bottom: 20%;
+      border-radius: 28px;
+      background:
+        linear-gradient(rgba(104,242,185,.22) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(104,242,185,.16) 2px, transparent 2px),
+        linear-gradient(180deg, rgba(27,207,143,.16), rgba(24,199,255,.08));
+      background-size: 40px 40px, 40px 40px, 100% 100%;
+      transform: perspective(700px) rotateX(58deg);
+      transform-origin: center bottom;
+      opacity: .76;
+    }
+
+    .frame-brand {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .frame-brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+    }
+
+    .versus {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 14px;
+      align-items: center;
+      align-self: center;
+      margin: auto 0;
+    }
+
+    .team-mark {
+      display: grid;
+      place-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding: 18px 10px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.13);
+      backdrop-filter: blur(16px);
+    }
+
+    .team-mark svg {
+      width: 68px;
+      height: 68px;
+      color: var(--cyan);
+      filter: drop-shadow(0 0 26px rgba(24,199,255,.35));
+    }
+
+    .team-mark strong {
+      max-width: 100%;
+      color: rgba(246,251,255,.88);
+      font-size: .92rem;
+      overflow-wrap: anywhere;
+    }
+
+    .vs {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #031121;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+      font-size: .9rem;
+      font-weight: 900;
+      box-shadow: 0 18px 42px rgba(244,183,67,.24);
+    }
+
+    .frame-bottom {
+      position: relative;
+      z-index: 2;
+      align-self: end;
+    }
+
+    .frame-bottom h4 {
+      margin: 0 0 10px;
+      font-size: clamp(1.65rem, 3.7vw, 3rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .frame-bottom p {
+      margin: 0;
+      color: rgba(246,251,255,.78);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .frame-progress {
+      height: 10px;
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+    }
+
+    .frame-progress i {
+      display: block;
+      width: 68%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald), var(--gold));
+      box-shadow: 0 0 24px rgba(24,199,255,.46);
+    }
+
+    .winner-frame {
+      position: relative;
+      place-items: center;
+      padding: 28px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 26%, rgba(255,224,138,.24), transparent 28%),
+        radial-gradient(ellipse at 20% 85%, rgba(24,199,255,.18), transparent 30%),
+        linear-gradient(155deg, #071423, #020814 66%);
+    }
+
+    .winner-frame::before {
+      content: "";
+      position: absolute;
+      inset: 11%;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 0 70px rgba(24,199,255,.12) inset;
+    }
+
+    .winner-lockup {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      justify-items: center;
+      gap: 18px;
+    }
+
+    .winner-lockup img {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+    }
+
+    .trophy {
+      width: 112px;
+      height: 112px;
+      display: grid;
+      place-items: center;
+      border-radius: 34px;
+      color: #031121;
+      background: linear-gradient(135deg, #fff7c4, var(--gold));
+      box-shadow: 0 26px 70px rgba(244,183,67,.28), 0 0 0 1px rgba(255,255,255,.5) inset;
+    }
+
+    .trophy svg {
+      width: 62px;
+      height: 62px;
+    }
+
+    .winner-frame h4 {
+      max-width: 10ch;
+      margin: 0;
+      font-size: clamp(2.25rem, 5vw, 4.1rem);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .winner-frame p {
+      max-width: 31ch;
+      margin: 0;
+      color: rgba(246,251,255,.78);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .widget-grid .asset-card { min-height: 430px; }
+
+    .widget-preview {
+      border-radius: 24px;
+      padding: 20px;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(3,13,26,.78);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .link-card {
+      display: grid;
+      gap: 18px;
+    }
+
+    .link-hero {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at 50% 25%, rgba(24,199,255,.28), transparent 42%),
+        linear-gradient(135deg, rgba(17,120,255,.2), rgba(27,207,143,.1)),
+        #061424;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .link-hero img {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      filter: drop-shadow(0 0 34px rgba(24,199,255,.36));
+    }
+
+    .widget-preview h4 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      line-height: 1.16;
+    }
+
+    .widget-preview p {
+      margin: 0;
+      color: rgba(246,251,255,.72);
+      font-size: .94rem;
+      line-height: 1.55;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 16px;
+      color: rgba(246,251,255,.72);
+      font-size: .82rem;
+      font-weight: 720;
+    }
+
+    .widget-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .mini-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 12px 14px;
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff, var(--cyan) 52%, #0aa8ff);
+      font-size: .9rem;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .mini-button.ghost {
+      width: 46px;
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .mini-button svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .donation-counter {
+      display: grid;
+      gap: 18px;
+    }
+
+    .counter-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .counter-top img {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+    }
+
+    .counter-total {
+      padding: 22px;
+      border-radius: 22px;
+      background:
+        radial-gradient(ellipse at 80% 12%, rgba(24,199,255,.23), transparent 40%),
+        rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.13);
+    }
+
+    .counter-total strong {
+      display: block;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+    }
+
+    .counter-total span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(246,251,255,.64);
+      font-size: .9rem;
+    }
+
+    .counter-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .counter-metrics div {
+      min-height: 82px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.11);
+    }
+
+    .counter-metrics strong,
+    .counter-metrics span {
+      display: block;
+    }
+
+    .counter-metrics strong { font-size: 1.05rem; }
+    .counter-metrics span {
+      margin-top: 5px;
+      color: rgba(246,251,255,.58);
+      font-size: .75rem;
+      line-height: 1.3;
+    }
+
+    .final-cta {
+      position: relative;
+      z-index: 2;
+      padding: 76px 0 96px;
+    }
+
+    .cta-panel {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: center;
+      padding: 42px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.035)),
+        rgba(255,255,255,.03);
+      box-shadow: 0 34px 110px rgba(0,0,0,.3);
+      overflow: hidden;
+    }
+
+    .cta-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto 8% -42%;
+      height: 80%;
+      background: linear-gradient(90deg, transparent, rgba(24,199,255,.2), rgba(27,207,143,.16), rgba(244,183,67,.14), transparent);
+      filter: blur(34px);
+    }
+
+    .cta-panel > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-panel h2 {
+      max-width: 760px;
+      font-size: clamp(2.35rem, 4.7vw, 4.75rem);
+    }
+
+    .cta-panel p {
+      max-width: 65ch;
+      margin: 18px 0 0;
+      color: rgba(246,251,255,.68);
+      font-size: 1.05rem;
+    }
+
+    .site-footer {
+      position: relative;
+      z-index: 2;
+      color: rgba(246,251,255,.66);
+      background: rgba(2,8,20,.78);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 30px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      font-size: .92rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1020px) {
+      .nav-links a:not(.button) { display: none; }
+      .nav-links {
+        min-width: 0;
+        justify-content: flex-end;
+      }
+      .hero-grid,
+      .section-head,
+      .cta-panel { grid-template-columns: 1fr; }
+      .hero { padding-top: 58px; }
+      .toolkit-console { min-height: 440px; }
+      .asset-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+      .container {
+        width: 100%;
+        max-width: var(--max);
+        padding-inline: 20px;
+      }
+
+      .nav {
+        min-height: 66px;
+        gap: 12px;
+      }
+      .brand span { font-size: .98rem; }
+      .brand img { width: 34px; height: 34px; }
+      .nav-links .button {
+        min-height: 42px;
+        width: auto;
+        max-width: none;
+        padding: 11px 12px;
+        font-size: .78rem;
+      }
+
+      .hero {
+        padding: 36px 0 38px;
+      }
+
+      .hero-grid { gap: 28px; }
+
+      .eyebrow,
+      .section-kicker {
+        font-size: .68rem;
+        letter-spacing: .1em;
+      }
+
+      h1 {
+        max-width: 13.8ch;
+        margin: 14px 0 16px;
+        font-size: clamp(2.1rem, 10vw, 2.68rem);
+        line-height: 1.17;
+      }
+
+      .hero-lead {
+        max-width: 100%;
+        font-size: 1.03rem;
+        line-height: 1.58;
+        overflow-wrap: break-word;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .button {
+        width: 100%;
+        min-height: 52px;
+        padding-inline: 16px;
+      }
+
+      .toolkit-console {
+        min-height: auto;
+        padding: 16px;
+        border-radius: 26px;
+      }
+
+      .toolkit-console::before {
+        inset: 12px;
+        border-radius: 20px;
+      }
+
+      .console-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .console-card {
+        grid-template-columns: 40px minmax(0, 1fr);
+        min-height: 92px;
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .console-card svg {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+      }
+
+      .section { padding: 58px 0; }
+      h2 {
+        font-size: clamp(2.18rem, 10.8vw, 3.18rem);
+        line-height: 1.1;
+      }
+
+      .section-head {
+        gap: 18px;
+        margin-bottom: 26px;
+      }
+
+      .section-head p,
+      .asset-meta p,
+      .widget-preview p {
+        font-size: .96rem;
+      }
+
+      .asset-card {
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .asset-meta {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .asset-tag { align-self: flex-start; }
+      .email-body { padding: 18px; }
+      .email-body h4 {
+        font-size: 1.7rem;
+        line-height: 1.12;
+      }
+
+      .email-stats,
+      .counter-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .matchup-frame,
+      .winner-frame {
+        padding: 18px;
+      }
+
+      .versus {
+        gap: 8px;
+      }
+
+      .team-mark {
+        padding: 14px 8px;
+        border-radius: 18px;
+      }
+
+      .team-mark svg {
+        width: 48px;
+        height: 48px;
+      }
+
+      .team-mark strong { font-size: .78rem; }
+      .vs {
+        width: 42px;
+        height: 42px;
+        font-size: .72rem;
+      }
+
+      .frame-bottom h4 {
+        font-size: clamp(1.32rem, 8vw, 2rem);
+      }
+
+      .winner-frame h4 {
+        font-size: clamp(2rem, 11vw, 3.1rem);
+      }
+
+      .trophy {
+        width: 90px;
+        height: 90px;
+        border-radius: 28px;
+      }
+
+      .trophy svg {
+        width: 50px;
+        height: 50px;
+      }
+
+      .widget-grid .asset-card { min-height: 0; }
+      .widget-actions { grid-template-columns: 1fr 46px; }
+      .cta-panel {
+        padding: 26px;
+        border-radius: 26px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .brand span { display: none; }
+      .frame-brand { font-size: .68rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="m4.5 7 7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24">
+      <circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="m8.6 10.6 6.8-4.2M8.6 13.4l6.8 4.2" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-credit" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="M3 10h18M8 15h3" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-trophy" viewBox="0 0 24 24">
+      <path d="M8 4h8v5a4 4 0 0 1-8 0V4Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+      <path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 13v4M9 20h6M8 17h8" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+      <path d="M4 19V5M4 19h16" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+      <path d="m7 15 3-4 3 2 5-7" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-field" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="M12 5v14M7 9v6M17 9v6" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-bolt" viewBox="0 0 24 24">
+      <path d="m13 2-8 12h6l-1 8 9-13h-6l0-7Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24">
+      <rect x="8" y="8" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="M5 16H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-team" viewBox="0 0 24 24">
+      <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+      <path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <div class="page">
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="landing-page.html" aria-label="Sports Raise home">
+          <img src="assets/logo-main.svg" alt="" />
+          <span>Sports Raise</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#email">Email</a>
+          <a href="#social">Social</a>
+          <a href="#widgets">Widgets</a>
+          <a class="button" href="mailto:hello@sportsraise.com?subject=Sports%20Raise%20toolkit">Request toolkit access</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div data-reveal>
+            <div class="eyebrow">Marketing assets catalog</div>
+            <h1 id="hero-title">Launch-ready assets for <span class="no-widow">every channel.</span></h1>
+            <p class="hero-lead">A premium sharing toolkit for Sports Raise operators: email templates, cinematic social frames, and campaign widgets that make Your Campaign easier to share before kickoff.</p>
+            <div class="hero-actions">
+              <a class="button" href="#email">Browse templates <svg><use href="#icon-arrow"/></svg></a>
+              <a class="button secondary" href="#widgets">Preview widgets <svg><use href="#icon-arrow"/></svg></a>
+            </div>
+          </div>
+
+          <aside class="toolkit-console" data-reveal aria-label="Toolkit asset system preview">
+            <div class="console-top">
+              <strong>Your Campaign asset queue</strong>
+              <span class="status-pill">6 tools ready</span>
+            </div>
+            <div class="console-feed">
+              <div class="console-card">
+                <svg><use href="#icon-mail"/></svg>
+                <div><strong>Email templates</strong><span>Launch Day and Weekly Matchup messages built around donation-to-credits language.</span></div>
+              </div>
+              <div class="console-card">
+                <svg><use href="#icon-field"/></svg>
+                <div><strong>Social overlays</strong><span>Square 1080-style frames for matchups, winners, progress, and cause branding.</span></div>
+              </div>
+              <div class="console-card">
+                <svg><use href="#icon-share"/></svg>
+                <div><strong>Share widgets</strong><span>Link in Bio previews and embeddable campaign progress counters.</span></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="email">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">Email templates</div>
+              <h2>Operator-ready messages for launch and every matchup.</h2>
+            </div>
+            <p>Responsive email previews keep the campaign framed around impact first, then explain how supporters donate, receive non-cash credits, and come back for game-day play.</p>
+          </div>
+
+          <div class="asset-grid">
+            <article class="asset-card" data-reveal>
+              <div class="asset-meta">
+                <div>
+                  <h3>Launch Day</h3>
+                  <p>Announcement email for the first campaign push.</p>
+                </div>
+                <span class="asset-tag">HTML email</span>
+              </div>
+              <div class="email-preview" aria-label="Launch announcement email preview">
+                <div class="email-bar"><span></span><span></span><span></span></div>
+                <div class="email-body">
+                  <div class="email-logo"><img src="assets/logo-main.svg" alt="" /> Sports Raise</div>
+                  <h4>We are changing how we give.</h4>
+                  <p>Your Campaign is live on Sports Raise. Every donation supports Cause Name and unlocks non-cash credits supporters can use for picks, predictions, and game-day challenges.</p>
+                  <p>The mission stays first. The weekly play gives supporters a reason to return, invite friends, and keep the campaign moving.</p>
+                  <span class="email-cta">Support Your Campaign</span>
+                  <div class="email-stats">
+                    <div><strong>68%</strong><span>goal progress</span></div>
+                    <div><strong>124</strong><span>supporters</span></div>
+                    <div><strong>Week 1</strong><span>challenge live</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="asset-card" data-reveal>
+              <div class="asset-meta">
+                <div>
+                  <h3>Weekly Matchup</h3>
+                  <p>Game-week reminder for supporters and teams.</p>
+                </div>
+                <span class="asset-tag">HTML email</span>
+              </div>
+              <div class="email-preview" aria-label="Weekly matchup email preview">
+                <div class="email-bar"><span></span><span></span><span></span></div>
+                <div class="email-body">
+                  <div class="email-logo"><img src="assets/logo-main.svg" alt="" /> Sports Raise</div>
+                  <h4>Make your picks for this Saturday.</h4>
+                  <p>Team A meets Team B in this week&apos;s Sports Raise matchup. Donate to Your Campaign, receive non-cash credits, and play for Cause Name before the board closes.</p>
+                  <p>Share the link with one more supporter and help the campaign reach its next milestone before kickoff.</p>
+                  <span class="email-cta">Open this week&apos;s matchup</span>
+                  <div class="email-stats">
+                    <div><strong>Team A</strong><span>home side</span></div>
+                    <div><strong>Team B</strong><span>challenge side</span></div>
+                    <div><strong>24 hrs</strong><span>before kickoff</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="social">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">Social overlays</div>
+              <h2>Cinematic frames for feeds, stories, and campaign updates.</h2>
+            </div>
+            <p>Each frame is designed as a 1080 by 1080 social mockup: bold cause branding, clear placeholders, and enough structure for operators to swap in the real matchup or reward moment.</p>
+          </div>
+
+          <div class="asset-grid">
+            <article class="asset-card social-card" data-reveal>
+              <div class="asset-meta">
+                <div>
+                  <h3>The Matchup</h3>
+                  <p>Team A vs Team B square frame with progress.</p>
+                </div>
+                <span class="asset-tag">1080 frame</span>
+              </div>
+              <div class="social-frame matchup-frame" aria-label="The Matchup social frame preview">
+                <div class="frame-brand"><img src="assets/logo-main.svg" alt="" /> <span>Play for Cause Name</span></div>
+                <div class="versus">
+                  <div class="team-mark"><svg><use href="#icon-team"/></svg><strong>Team A</strong></div>
+                  <div class="vs">VS</div>
+                  <div class="team-mark"><svg><use href="#icon-team"/></svg><strong>Team B</strong></div>
+                </div>
+                <div class="frame-bottom">
+                  <h4>Weekly Matchup</h4>
+                  <p>Your Campaign is moving toward its goal. Donate, receive credits, and make the pick before kickoff.</p>
+                  <div class="frame-progress" aria-hidden="true"><i></i></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="asset-card social-card" data-reveal>
+              <div class="asset-meta">
+                <div>
+                  <h3>The Winner</h3>
+                  <p>Reward announcement and impact reminder.</p>
+                </div>
+                <span class="asset-tag">1080 frame</span>
+              </div>
+              <div class="social-frame winner-frame" aria-label="The Winner social frame preview">
+                <div class="winner-lockup">
+                  <img src="assets/logo-main.svg" alt="" />
+                  <div class="trophy"><svg><use href="#icon-trophy"/></svg></div>
+                  <h4>Winner Circle</h4>
+                  <p>Your Campaign reached another milestone for Cause Name. The donated reward pool keeps supporters coming back.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="widgets">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">Share widgets</div>
+              <h2>Compact campaign modules for links, bios, and partner pages.</h2>
+            </div>
+            <p>Widgets give operators a ready-made sharing surface: one version for social bios and messaging apps, one version for embeddable donation progress on external pages.</p>
+          </div>
+
+          <div class="asset-grid widget-grid">
+            <article class="asset-card" data-reveal>
+              <div class="asset-meta">
+                <div>
+                  <h3>Share Link Card</h3>
+                  <p>Link in Bio style widget with campaign progress.</p>
+                </div>
+                <span class="asset-tag">Share link</span>
+              </div>
+              <div class="widget-preview link-card" aria-label="Share link card preview">
+                <div class="link-hero"><img src="assets/logo-main.svg" alt="" /></div>
+                <div>
+                  <h4>Your Campaign</h4>
+                  <p>Support Cause Name, receive non-cash credits, and play the next Sports Raise challenge.</p>
+                  <div class="progress-row"><span>$13,600 raised</span><span>$20,000 goal</span></div>
+                  <div class="frame-progress" aria-hidden="true"><i></i></div>
+                  <div class="widget-actions">
+                    <span class="mini-button">Donate and play <svg><use href="#icon-arrow"/></svg></span>
+                    <span class="mini-button ghost" aria-label="Copy share link"><svg><use href="#icon-copy"/></svg></span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="asset-card" data-reveal>
+              <div class="asset-meta">
+                <div>
+                  <h3>Donation Counter</h3>
+                  <p>Embeddable progress widget for partner pages.</p>
+                </div>
+                <span class="asset-tag">Embed</span>
+              </div>
+              <div class="widget-preview donation-counter" aria-label="Donation counter widget preview">
+                <div class="counter-top">
+                  <div>
+                    <h4>Your Campaign</h4>
+                    <p>Live campaign progress for Cause Name.</p>
+                  </div>
+                  <img src="assets/logo-main.svg" alt="" />
+                </div>
+                <div class="counter-total">
+                  <strong>$13,600</strong>
+                  <span>raised through donations and supporter shares</span>
+                  <div class="frame-progress" aria-hidden="true"><i></i></div>
+                </div>
+                <div class="counter-metrics">
+                  <div><strong>124</strong><span>supporters</span></div>
+                  <div><strong>312</strong><span>credits issued</span></div>
+                  <div><strong>8</strong><span>reward drops</span></div>
+                </div>
+                <span class="mini-button">Support Cause Name <svg><use href="#icon-arrow"/></svg></span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="container">
+          <div class="cta-panel" data-reveal>
+            <div>
+              <div class="section-kicker">Built for campaign operators</div>
+              <h2>Use the assets before kickoff.</h2>
+              <p>Start with campaign-ready templates, then customize the cause, teams, goal, rewards, and channel links for each Sports Raise launch.</p>
+            </div>
+            <a class="button" href="mailto:hello@sportsraise.com?subject=Sports%20Raise%20toolkit">Request toolkit access <svg><use href="#icon-arrow"/></svg></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand" href="#top" aria-label="Sports Raise toolkit top">
+          <img src="assets/logo-main.svg" alt="" />
+          <span>Sports Raise</span>
+        </a>
+        <div class="footer-links">
+          <a href="#email">Email</a>
+          <a href="#social">Social</a>
+          <a href="#widgets">Widgets</a>
+          <a href="landing-page.html">Landing page</a>
+          <a href="mailto:hello@sportsraise.com?subject=Sports%20Raise%20toolkit">hello@sportsraise.com</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

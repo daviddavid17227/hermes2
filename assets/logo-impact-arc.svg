@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sports Raise impact arc logo">
+  <defs>
+    <linearGradient id="sr-impact-gradient" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#1178FF"/>
+      <stop offset="0.55" stop-color="#1BCF8F"/>
+      <stop offset="1" stop-color="#FFE08A"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="104" height="104" rx="28" fill="#061424"/>
+  <path d="M30 84c18-31 41-43 70-48" fill="none" stroke="url(#sr-impact-gradient)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M34 94h60" stroke="rgba(255,255,255,.24)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M80 31l21 5-11 19" fill="none" stroke="#FFE08A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="31" cy="84" r="8" fill="#1178FF"/>
+</svg>

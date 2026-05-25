@@ -3,401 +3,1732 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sports Raise — Turn Fan Energy Into Funding</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Sports Raise | Campaign Operator Platform</title>
   <style>
     :root {
-      --ink: #061b31;
-      --ink-2: #273951;
-      --muted: #64748d;
-      --line: #e5edf5;
-      --paper: #ffffff;
-      --paper-soft: #f6f9fc;
-      --purple: #533afd;
-      --purple-2: #4434d4;
-      --indigo: #1c1e54;
-      --ruby: #ea2261;
-      --magenta: #f96bee;
-      --green: #15be53;
-      --gold: #ffc857;
-      --grass: #0e7a45;
-      --shadow: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
-      --deep-shadow: rgba(3,3,39,0.28) 0px 34px 70px -28px, rgba(0,0,0,0.18) 0px 20px 44px -24px;
+      --night: #020814;
+      --navy: #061424;
+      --elevated: #0a2036;
+      --ink: #07182a;
+      --cloud: #f5f8fb;
+      --white: #ffffff;
+      --text: #f6fbff;
+      --muted-dark: #aab9c8;
+      --muted: #64758a;
+      --line: #d9e5ef;
+      --line-dark: rgba(198, 221, 242, .15);
+      --blue: #1178ff;
+      --cyan: #18c7ff;
+      --emerald: #1bcf8f;
+      --mint: #68f2b9;
+      --gold: #f4b743;
+      --cream: #ffe08a;
+      --max: 1180px;
+      --radius: 24px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: 'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at 14% 8%, rgba(83,58,253,.16), transparent 34rem),
-        radial-gradient(circle at 88% 6%, rgba(249,107,238,.16), transparent 32rem),
-        linear-gradient(180deg, #fff 0%, #f7fbff 45%, #fff 100%);
+      background: var(--cloud);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       overflow-x: hidden;
-      font-feature-settings: "ss01";
+      text-rendering: optimizeLegibility;
     }
 
     a { color: inherit; text-decoration: none; }
-    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    img, svg { display: block; max-width: 100%; }
+    button, input, textarea { font: inherit; }
+    h1, h2, h3, p { margin-top: 0; }
+    p { color: inherit; line-height: 1.65; }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, var(--night) 0 23%, var(--cloud) 23% 56%, var(--night) 56% 74%, var(--cloud) 74% 100%);
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 20;
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(2, 8, 20, .95), rgba(2, 8, 20, .72));
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+    }
 
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(18px);
-      background: rgba(255,255,255,.78);
-      border-bottom: 1px solid rgba(229,237,245,.72);
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
-    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -.02em; }
-    .logo {
-      width: 34px; height: 34px; border-radius: 9px;
-      background: conic-gradient(from 220deg, var(--purple), var(--ruby), var(--gold), var(--green), var(--purple));
-      box-shadow: 0 14px 28px rgba(83,58,253,.23);
-      position: relative;
-    }
-    .logo::after {
-      content: ""; position: absolute; inset: 8px 10px;
-      border: 2px solid #fff; border-left: 0; border-radius: 0 14px 14px 0;
-      transform: skewX(-10deg);
-    }
-    .nav-links { display: flex; gap: 25px; align-items: center; font-size: 14px; color: var(--ink-2); }
-    .nav-links a { opacity: .82; }
-    .nav-links a:hover { opacity: 1; color: var(--purple); }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      min-height: 42px; padding: 10px 16px; border-radius: 6px;
-      font-weight: 500; border: 1px solid transparent; cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--purple); color: #fff; box-shadow: rgba(83,58,253,.35) 0 18px 34px -18px; }
-    .btn-primary:hover { background: var(--purple-2); }
-    .btn-ghost { color: var(--purple); border-color: #b9b9f9; background: rgba(255,255,255,.72); }
 
-    .hero { padding: 74px 0 80px; }
-    .hero-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 54px; align-items: center; }
-    .eyebrow {
-      display: inline-flex; gap: 9px; align-items: center; padding: 6px 9px 6px 7px;
-      border: 1px solid #d6d9fc; border-radius: 999px; background: rgba(255,255,255,.74);
-      color: var(--purple); font: 500 13px/1 'Source Code Pro', monospace;
-      box-shadow: rgba(23,23,23,.05) 0 10px 24px;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      font-weight: 780;
+      letter-spacing: 0;
     }
-    .eyebrow span { width: 8px; height: 8px; border-radius: 99px; background: var(--green); box-shadow: 0 0 0 5px rgba(21,190,83,.15); }
-    h1 {
-      margin: 21px 0 18px;
-      font-size: clamp(48px, 6.8vw, 82px);
-      line-height: .95;
-      letter-spacing: -2.6px;
-      font-weight: 300;
-      text-wrap: pretty;
-    }
-    .hero-lede { font-size: 20px; line-height: 1.48; color: var(--muted); max-width: 575px; font-weight: 300; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
-    .trust-row { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 28px; color: var(--muted); font-size: 14px; }
-    .trust-row strong { color: var(--ink); font-weight: 500; }
 
-    .hero-stage {
-      min-height: 570px;
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      box-shadow: 0 0 36px rgba(24, 199, 255, .28);
+    }
+
+    .brand span {
+      font-size: 1.03rem;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: rgba(246, 251, 255, .72);
+      font-size: .92rem;
+      font-weight: 680;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color .2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-size: .96rem;
+      font-weight: 760;
+      line-height: 1;
+      white-space: nowrap;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .button.primary {
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff 0%, var(--cyan) 48%, #0aa8ff 100%);
+      box-shadow: 0 22px 56px rgba(24, 199, 255, .32), 0 0 0 1px rgba(255, 255, 255, .34) inset;
+    }
+
+    .button.primary:hover {
+      box-shadow: 0 28px 70px rgba(24, 199, 255, .36), 0 0 0 1px rgba(255, 255, 255, .42) inset;
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+    }
+
+    .button.secondary:hover {
+      border-color: rgba(104, 242, 185, .48);
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .button.dark {
+      color: var(--text);
+      background: var(--ink);
+      border-color: rgba(7, 24, 42, .1);
+      box-shadow: 0 20px 52px rgba(7, 24, 42, .18);
+    }
+
+    .button.ghost {
+      color: var(--ink);
+      background: var(--white);
+      border-color: rgba(7, 24, 42, .1);
+      box-shadow: 0 16px 42px rgba(7, 24, 42, .1);
+    }
+
+    .button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .hero {
       position: relative;
-      perspective: 1500px;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 68% 18%, rgba(24, 199, 255, .25), transparent 34%),
+        radial-gradient(ellipse at 88% 64%, rgba(27, 207, 143, .18), transparent 30%),
+        radial-gradient(ellipse at 30% 18%, rgba(244, 183, 67, .12), transparent 28%),
+        linear-gradient(145deg, #020814 0%, #051428 45%, #020814 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .36;
+      background:
+        linear-gradient(115deg, transparent 0 20%, rgba(255,255,255,.13) 20.5%, transparent 22.5% 40%, rgba(255,255,255,.08) 41%, transparent 43%),
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 100% 100%, 52px 52px, 52px 52px;
+      mask-image: linear-gradient(90deg, #000, #000 60%, transparent 92%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 210px;
+      background: linear-gradient(180deg, transparent, rgba(2,8,20,.98));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      min-height: 760px;
       display: grid;
-      place-items: center;
+      grid-template-columns: minmax(0, .92fr) minmax(520px, 1.08fr);
+      align-items: center;
+      gap: 46px;
+      padding: 72px 0 86px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #baf4ff;
+      font-size: .76rem;
+      font-weight: 820;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--mint);
+      box-shadow: 0 0 24px rgba(104, 242, 185, .86);
+    }
+
+    h1 {
+      max-width: 11.2ch;
+      margin: 18px 0 22px;
+      font-size: clamp(3.85rem, 7vw, 7.05rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+      font-weight: 720;
+      text-wrap: balance;
+    }
+
+    .hero-lead {
+      max-width: 650px;
+      margin-bottom: 0;
+      color: rgba(246, 251, 255, .84);
+      font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+      line-height: 1.64;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      color: rgba(246, 251, 255, .58);
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 620px;
       isolation: isolate;
     }
-    .field-orbit {
-      position: absolute; inset: 7% -4% 3% 4%;
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 8% 2% 4%;
+      border-radius: 44px;
+      background: linear-gradient(135deg, rgba(24,199,255,.24), rgba(27,207,143,.16), rgba(244,183,67,.15));
+      filter: blur(48px);
+      z-index: -2;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      left: 5%;
+      right: 2%;
+      bottom: 5%;
+      height: 18%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(24,199,255,.4), rgba(104,242,185,.25), transparent);
+      filter: blur(20px);
+      transform: perspective(650px) rotateX(64deg);
+      z-index: -1;
+    }
+
+    .hero-frame {
+      position: absolute;
+      inset: 2% 0 6% -1%;
+      display: grid;
+      place-items: center;
       border-radius: 38px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.13);
       background:
-        linear-gradient(120deg, rgba(255,255,255,.88), rgba(246,249,252,.6)),
-        radial-gradient(circle at 25% 20%, rgba(83,58,253,.25), transparent 22rem),
-        radial-gradient(circle at 72% 66%, rgba(14,122,69,.25), transparent 18rem);
-      box-shadow: var(--deep-shadow);
-      transform: rotateX(58deg) rotateZ(-23deg) translateY(48px);
-      transform-style: preserve-3d;
-      border: 1px solid rgba(229,237,245,.9);
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 30%),
+        radial-gradient(ellipse at center, rgba(255,255,255,.05), rgba(255,255,255,.01) 52%, transparent);
+      box-shadow: 0 38px 110px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.12);
     }
-    .field-orbit::before {
-      content: ""; position: absolute; inset: 42px; border-radius: 28px;
+
+    .hero-frame img {
+      width: min(850px, 108%);
+      max-width: none;
+      filter: drop-shadow(0 42px 72px rgba(0,0,0,.5)) drop-shadow(0 0 54px rgba(24,199,255,.28));
+      transform: translateY(8px);
+    }
+
+    .operator-card,
+    .signal-card {
+      position: absolute;
+      z-index: 4;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(3, 13, 26, .78);
+      box-shadow: 0 26px 70px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.1);
+      backdrop-filter: blur(18px);
+    }
+
+    .operator-card {
+      left: -2%;
+      bottom: 8%;
+      width: min(360px, 58%);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .operator-card strong {
+      display: block;
+      font-size: 1.04rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .operator-card span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(246,251,255,.64);
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    .progress-track {
+      height: 9px;
+      margin-top: 15px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+    }
+
+    .progress-track i {
+      display: block;
+      width: 72%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald), var(--gold));
+      box-shadow: 0 0 24px rgba(24,199,255,.46);
+    }
+
+    .signal-card {
+      top: 10%;
+      right: 2%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      border-radius: 999px;
+      padding: 10px 14px 10px 10px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .signal-card svg {
+      width: 34px;
+      height: 34px;
+      padding: 8px;
+      border-radius: 999px;
+      color: #031121;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+    }
+
+    .trust-strip {
+      position: relative;
+      color: var(--text);
+      background: var(--night);
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .trust-item {
+      min-height: 138px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
       background:
-        linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.74) 49.5% 50.5%, transparent 50.5%),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 1px, transparent 1px 44px),
-        linear-gradient(135deg, rgba(14,122,69,.92), rgba(18,139,82,.78));
-      border: 2px solid rgba(255,255,255,.72);
-      box-shadow: inset 0 0 0 1px rgba(6,27,49,.08), rgba(6,27,49,.18) 0 24px 45px -26px;
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025)),
+        var(--night);
     }
-    .field-orbit::after {
-      content: ""; position: absolute; width: 160px; height: 160px; border: 3px solid rgba(255,255,255,.72); border-radius: 50%;
-      left: 50%; top: 50%; transform: translate(-50%, -50%);
+
+    .trust-item svg {
+      width: 30px;
+      height: 30px;
+      color: var(--cyan);
     }
-    .hero-phone {
-      width: 260px; height: 520px; border-radius: 38px;
-      position: absolute; left: 11%; top: 6%; z-index: 4;
-      background: #07182d;
-      padding: 12px;
-      box-shadow: rgba(3,3,39,.36) 0 42px 82px -32px, rgba(83,58,253,.28) 0 20px 42px -20px;
-      transform: rotateZ(-8deg) rotateY(18deg) rotateX(5deg);
-      animation: phoneFloat 7s ease-in-out infinite;
+
+    .trust-item strong {
+      display: block;
+      margin-top: 20px;
+      font-size: 1rem;
+      line-height: 1.3;
+      letter-spacing: 0;
     }
-    .phone-screen { height: 100%; border-radius: 30px; overflow: hidden; background: linear-gradient(180deg, #fff, #f6f9fc); position: relative; }
-    .phone-top { height: 84px; background: linear-gradient(135deg, #1c1e54, #533afd 70%, #f96bee); color: #fff; padding: 18px; }
-    .phone-top small { opacity: .8; font-family: 'Source Code Pro', monospace; font-size: 10px; }
-    .phone-top b { display: block; font-size: 22px; font-weight: 500; letter-spacing: -.4px; margin-top: 3px; }
-    .ticket { margin: 14px; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px; box-shadow: rgba(23,23,23,.08) 0 12px 32px; }
-    .teams { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--ink-2); }
-    .team-dot { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; color: white; font-weight: 700; }
-    .pick-line { margin: 14px 0 9px; height: 9px; border-radius: 99px; background: #eef3fb; overflow: hidden; }
-    .pick-line i { display:block; height:100%; width: 68%; border-radius: inherit; background: linear-gradient(90deg, var(--green), var(--gold)); }
-    .donate-card { margin: 14px; border-radius: 18px; padding: 15px; background: #effdf5; border: 1px solid rgba(21,190,83,.22); color: #0e623a; }
-    .donate-card strong { display:block; color: #0b3f28; font-size: 20px; }
-    .page-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin: 14px; }
-    .page-tabs div { border: 1px solid #e5edf5; border-radius: 12px; padding: 9px 5px; text-align: center; font-size: 10px; color: var(--muted); background: #fff; }
 
-    .floating-panel {
-      position: absolute; z-index: 5; background: rgba(255,255,255,.9); backdrop-filter: blur(18px);
-      border: 1px solid rgba(229,237,245,.92); border-radius: 18px; box-shadow: var(--shadow);
-      transform-style: preserve-3d;
+    .section {
+      position: relative;
+      padding: 92px 0;
+      overflow: hidden;
     }
-    .panel-prizes { right: 3%; top: 11%; width: 285px; padding: 16px; transform: rotateZ(5deg) rotateY(-14deg); animation: floatA 7.8s ease-in-out infinite; }
-    .panel-donor { right: 0; bottom: 13%; width: 310px; padding: 16px; transform: rotateZ(-4deg) rotateY(-12deg); animation: floatB 7.2s ease-in-out infinite; }
-    .panel-impact { left: 0; bottom: 2%; width: 260px; padding: 14px; transform: rotateZ(7deg) rotateY(12deg); animation: floatC 8.2s ease-in-out infinite; }
-    .panel-title { display: flex; align-items: center; justify-content: space-between; color: var(--ink); font-weight: 500; letter-spacing: -.02em; }
-    .pill { border: 1px solid rgba(21,190,83,.4); background: rgba(21,190,83,.12); color: #108c3d; padding: 3px 7px; border-radius: 999px; font: 500 10px/1 'Source Code Pro', monospace; }
-    .prize-row { margin-top: 12px; display: grid; grid-template-columns: 48px 1fr auto; gap: 11px; align-items: center; }
-    .prize-img { height: 48px; border-radius: 14px; background: linear-gradient(135deg, #fff, #eaf0ff); border: 1px solid var(--line); display: grid; place-items: center; font-size: 24px; }
-    .prize-row b { font-size: 14px; font-weight: 500; display:block; }
-    .prize-row small { color: var(--muted); }
-    .credit-chip { color: var(--purple); font-family: 'Source Code Pro', monospace; font-size: 11px; }
-    .mini-chart { height: 94px; display: flex; align-items: end; gap: 8px; padding-top: 15px; }
-    .mini-chart span { flex: 1; border-radius: 9px 9px 2px 2px; background: linear-gradient(180deg, var(--purple), #b9b9f9); min-height: 24px; }
-    .impact-line { display:flex; justify-content:space-between; margin-top: 10px; color: var(--muted); font-size: 13px; }
-    .impact-line strong { color: var(--ink); }
-    .orb { position: absolute; border-radius: 999px; filter: blur(.2px); z-index: 3; }
-    .orb.one { width: 72px; height: 72px; right: 30%; top: 3%; background: radial-gradient(circle at 30% 25%, #fff, var(--gold)); box-shadow: rgba(255,200,87,.45) 0 18px 40px; animation: orb 9s ease-in-out infinite; }
-    .orb.two { width: 42px; height: 42px; left: 44%; bottom: 16%; background: radial-gradient(circle at 30% 25%, #fff, var(--ruby)); box-shadow: rgba(234,34,97,.38) 0 18px 38px; animation: orb 8s ease-in-out infinite reverse; }
-    .path { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .7; }
-    .path svg { width: 100%; height: 100%; overflow: visible; }
-    .path-line { fill: none; stroke: url(#grad); stroke-width: 2.2; stroke-dasharray: 7 10; animation: dash 22s linear infinite; }
 
-    .section { padding: 78px 0; }
-    .section-header { max-width: 720px; margin-bottom: 34px; }
-    .kicker { color: var(--purple); font: 600 12px/1 'Source Code Pro', monospace; text-transform: uppercase; letter-spacing: .08em; }
-    h2 { font-size: clamp(34px, 4.8vw, 56px); line-height: 1.02; letter-spacing: -1.6px; font-weight: 300; margin: 12px 0 13px; }
-    .section-header p { color: var(--muted); font-size: 18px; line-height: 1.48; font-weight: 300; }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .step-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 21px; box-shadow: rgba(23,23,23,.05) 0 14px 35px; position: relative; overflow: hidden; }
-    .step-card::after { content:""; position:absolute; width: 120px; height:120px; right:-64px; top:-64px; background: radial-gradient(circle, rgba(83,58,253,.14), transparent 70%); }
-    .num { width: 32px; height: 32px; border-radius: 9px; display:grid; place-items:center; color:#fff; background: var(--purple); font-family:'Source Code Pro', monospace; font-size: 13px; margin-bottom: 22px; }
-    .step-card h3 { font-size: 22px; line-height: 1.08; letter-spacing: -.3px; font-weight: 300; margin: 0 0 10px; }
-    .step-card p { color: var(--muted); line-height: 1.48; margin: 0; }
-
-    .dark-band { background: var(--indigo); color: #fff; padding: 82px 0; position: relative; overflow: hidden; }
-    .dark-band::before { content:""; position:absolute; inset: -20% -10%; background: radial-gradient(circle at 20% 20%, rgba(83,58,253,.45), transparent 27rem), radial-gradient(circle at 78% 70%, rgba(249,107,238,.25), transparent 28rem); }
-    .dark-grid { position: relative; display: grid; grid-template-columns: .8fr 1.2fr; gap: 44px; align-items: start; }
-    .dark-band h2 { color: #fff; }
-    .dark-band p { color: rgba(255,255,255,.72); }
-    .benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .benefit { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.08); border-radius: 14px; padding: 20px; min-height: 152px; }
-    .benefit b { display:block; font-size: 21px; font-weight: 400; letter-spacing: -.25px; margin-bottom: 8px; }
-    .benefit span { color: rgba(255,255,255,.68); line-height: 1.45; }
-
-    .mock-pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .mock { border: 1px solid var(--line); background: #fff; border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
-    .mock-head { height: 48px; display:flex; align-items:center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #fbfdff; }
-    .mock-dot { width: 8px; height: 8px; border-radius: 99px; background: #d6dce8; }
-    .mock-body { padding: 18px; min-height: 245px; }
-    .mock h3 { margin: 0 0 8px; font-size: 24px; font-weight: 300; letter-spacing: -.35px; }
-    .mock p { color: var(--muted); margin: 0 0 18px; line-height: 1.42; }
-    .fake-row { height: 38px; border: 1px solid #edf2f8; border-radius: 10px; margin: 9px 0; background: linear-gradient(90deg, #fff, #f8fbff); }
-    .fake-card { height: 78px; border-radius: 13px; background: linear-gradient(135deg, #f7f2ff, #effdf5); border: 1px solid #e8eff8; margin-top: 10px; }
-
-    .cta { padding: 86px 0 96px; text-align: center; }
-    .cta-box { width: min(900px, 100%); margin: 0 auto; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 46px 28px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-    .cta-box::before { content:""; position:absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(83,58,253,.14), transparent 70%); left: -220px; top: -280px; }
-    .cta-box > * { position: relative; }
-    .cta h2 { margin-left: auto; margin-right: auto; max-width: 760px; }
-    .cta p { color: var(--muted); max-width: 620px; margin: 0 auto 25px; font-size: 18px; }
-    footer { border-top: 1px solid var(--line); color: var(--muted); padding: 30px 0; font-size: 14px; }
-    footer .container { display:flex; justify-content:space-between; gap: 18px; flex-wrap: wrap; }
-
-    @keyframes phoneFloat { 0%,100% { transform: rotateZ(-8deg) rotateY(18deg) rotateX(5deg) translateY(0); } 50% { transform: rotateZ(-5deg) rotateY(21deg) rotateX(6deg) translateY(-14px); } }
-    @keyframes floatA { 0%,100% { transform: rotateZ(5deg) rotateY(-14deg) translateY(0); } 50% { transform: rotateZ(3deg) rotateY(-10deg) translateY(-16px); } }
-    @keyframes floatB { 0%,100% { transform: rotateZ(-4deg) rotateY(-12deg) translateY(0); } 50% { transform: rotateZ(-2deg) rotateY(-9deg) translateY(13px); } }
-    @keyframes floatC { 0%,100% { transform: rotateZ(7deg) rotateY(12deg) translateY(0); } 50% { transform: rotateZ(4deg) rotateY(15deg) translateY(-12px); } }
-    @keyframes orb { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(14px,-22px,0); } }
-    @keyframes dash { to { stroke-dashoffset: -260; } }
-
-    @media (max-width: 980px) {
-      .hero-grid, .dark-grid { grid-template-columns: 1fr; }
-      .hero-stage { min-height: 620px; }
-      .steps, .mock-pages { grid-template-columns: repeat(2, 1fr); }
-      .nav-links a:not(.btn) { display: none; }
+    .section.light {
+      background:
+        radial-gradient(ellipse at 84% 8%, rgba(24, 199, 255, .16), transparent 30%),
+        radial-gradient(ellipse at 12% 18%, rgba(104, 242, 185, .12), transparent 28%),
+        var(--cloud);
     }
-    @media (max-width: 640px) {
-      .container { width: min(100% - 28px, 1120px); }
-      .hero { padding-top: 44px; }
-      h1 { letter-spacing: -1.45px; }
-      .hero-stage { min-height: 610px; transform: scale(.86); transform-origin: top center; margin-bottom: -80px; }
-      .hero-phone { left: 1%; }
-      .panel-prizes { right: -8%; }
-      .panel-donor { right: -12%; bottom: 8%; }
-      .panel-impact { left: -7%; }
-      .steps, .benefits, .mock-pages { grid-template-columns: 1fr; }
-      .nav-inner { height: 64px; }
-      .btn { width: 100%; }
-      .hero-actions { flex-direction: column; }
+
+    .section.dark {
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 72% 10%, rgba(17, 120, 255, .22), transparent 30%),
+        radial-gradient(ellipse at 18% 58%, rgba(244, 183, 67, .11), transparent 24%),
+        linear-gradient(180deg, var(--night), #071423 50%, var(--night));
     }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .84fr) minmax(300px, .44fr);
+      gap: 42px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #0c66db;
+      font-size: .76rem;
+      font-weight: 820;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .dark .section-kicker { color: #baf4ff; }
+
+    .section-kicker::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 20px rgba(27, 207, 143, .65);
+    }
+
+    h2 {
+      max-width: 850px;
+      margin: 12px 0 0;
+      font-size: clamp(2.55rem, 5.15vw, 5rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 700;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .dark .section-head p { color: rgba(246,251,255,.68); }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .insight-panel {
+      border-radius: var(--radius);
+      padding: 30px;
+      background: var(--white);
+      border: 1px solid rgba(7,24,42,.08);
+      box-shadow: 0 24px 70px rgba(7,24,42,.09);
+    }
+
+    .insight-panel h3,
+    .bento-card h3,
+    .process-card h3,
+    .proof-card h3,
+    .video-copy h3,
+    .season-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      line-height: 1.18;
+      letter-spacing: 0;
+      font-weight: 720;
+    }
+
+    .insight-panel p,
+    .bento-card p,
+    .process-card p,
+    .proof-card p,
+    .video-copy p,
+    .season-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.62;
+    }
+
+    .energy-loop {
+      position: relative;
+      min-height: 360px;
+      border-radius: 30px;
+      padding: 26px;
+      color: var(--text);
+      background:
+        linear-gradient(135deg, rgba(10,32,54,.96), rgba(2,8,20,.98)),
+        var(--night);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 32px 90px rgba(7,24,42,.28);
+      overflow: hidden;
+    }
+
+    .energy-loop::before {
+      content: "";
+      position: absolute;
+      inset: 12% -10% auto;
+      height: 190px;
+      background: linear-gradient(90deg, transparent, rgba(24,199,255,.22), rgba(27,207,143,.18), rgba(244,183,67,.16), transparent);
+      filter: blur(28px);
+      transform: rotate(-8deg);
+    }
+
+    .loop-row {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .loop-node {
+      min-height: 142px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .loop-node svg {
+      width: 34px;
+      height: 34px;
+      color: var(--mint);
+      margin-bottom: 18px;
+    }
+
+    .loop-node strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 1.04rem;
+    }
+
+    .loop-node span {
+      display: block;
+      color: rgba(246,251,255,.66);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: minmax(210px, auto);
+      gap: 14px;
+    }
+
+    .bento-card {
+      position: relative;
+      min-height: 210px;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .bento-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald), var(--gold));
+      opacity: .76;
+    }
+
+    .bento-card h3,
+    .bento-card p { position: relative; z-index: 2; }
+    .bento-card p { color: rgba(246,251,255,.66); }
+
+    .bento-card svg {
+      position: relative;
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 22px;
+      color: var(--cyan);
+    }
+
+    .bento-card.large {
+      grid-column: span 2;
+      grid-row: span 2;
+      min-height: 434px;
+      padding: 28px;
+      background:
+        radial-gradient(ellipse at 82% 8%, rgba(24,199,255,.24), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+    }
+
+    .bento-card.tall { grid-row: span 2; }
+    .bento-card.wide { grid-column: span 2; }
+
+    .campaign-mock {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 12px;
+      z-index: 1;
+    }
+
+    .mock-panel {
+      min-height: 148px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(2,8,20,.56);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .mock-line {
+      height: 10px;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+    }
+
+    .mock-line.short { width: 58%; }
+    .mock-line.blue { width: 82%; background: linear-gradient(90deg, var(--cyan), rgba(24,199,255,.28)); }
+    .mock-line.green { width: 68%; background: linear-gradient(90deg, var(--emerald), rgba(27,207,143,.24)); }
+    .mock-line.gold { width: 74%; background: linear-gradient(90deg, var(--gold), rgba(244,183,67,.24)); }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .process-card {
+      min-height: 300px;
+      padding: 24px;
+      border-radius: 24px;
+      background: var(--white);
+      border: 1px solid rgba(7,24,42,.08);
+      box-shadow: 0 18px 54px rgba(7,24,42,.08);
+    }
+
+    .icon-badge {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 54px;
+      color: #031121;
+      border-radius: 17px;
+      background: linear-gradient(135deg, #ffffff, #b8efff 45%, var(--cyan));
+      box-shadow: 0 16px 38px rgba(17,120,255,.2);
+    }
+
+    .icon-badge svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .video-section {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(440px, 1fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .video-copy p {
+      color: rgba(246,251,255,.68);
+      max-width: 62ch;
+    }
+
+    .asset-board {
+      position: relative;
+      min-height: 460px;
+      border-radius: 32px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+        rgba(255,255,255,.03);
+      box-shadow: 0 30px 90px rgba(0,0,0,.28);
+      overflow: hidden;
+    }
+
+    .asset-board::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(17,120,255,.26), transparent 42%),
+        linear-gradient(315deg, rgba(244,183,67,.18), transparent 38%),
+        rgba(2,8,20,.52);
+    }
+
+    .phone-card,
+    .video-card,
+    .share-card {
+      position: absolute;
+      z-index: 2;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(3,13,26,.78);
+      box-shadow: 0 24px 70px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .phone-card {
+      left: 10%;
+      top: 13%;
+      width: 230px;
+      height: 370px;
+      padding: 14px;
+      border-radius: 34px;
+    }
+
+    .phone-screen {
+      height: 100%;
+      border-radius: 24px;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(24,199,255,.18), transparent 42%),
+        linear-gradient(145deg, #061424, #020814);
+      overflow: hidden;
+    }
+
+    .video-card {
+      right: 8%;
+      top: 16%;
+      width: 250px;
+      min-height: 146px;
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .play {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 24px;
+      color: #031121;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+    }
+
+    .share-card {
+      right: 12%;
+      bottom: 12%;
+      width: 300px;
+      min-height: 128px;
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .share-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .share-row span {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .asset-title {
+      display: block;
+      color: var(--text);
+      font-weight: 760;
+      line-height: 1.25;
+    }
+
+    .asset-copy {
+      display: block;
+      margin-top: 6px;
+      color: rgba(246,251,255,.62);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .season-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(380px, 1.08fr);
+      gap: 36px;
+      align-items: stretch;
+    }
+
+    .season-card {
+      min-height: 390px;
+      padding: 32px;
+      border-radius: 30px;
+      background: var(--white);
+      border: 1px solid rgba(7,24,42,.08);
+      box-shadow: 0 24px 70px rgba(7,24,42,.09);
+    }
+
+    .season-card.feature {
+      color: var(--text);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+        linear-gradient(145deg, var(--elevated), var(--night));
+      border-color: rgba(255,255,255,.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .season-card.feature::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% 4%;
+      height: 42%;
+      background:
+        linear-gradient(rgba(104,242,185,.22) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(104,242,185,.18) 2px, transparent 2px);
+      background-size: 44px 44px;
+      transform: perspective(700px) rotateX(64deg);
+      transform-origin: bottom;
+      opacity: .52;
+    }
+
+    .season-card.feature p { color: rgba(246,251,255,.68); }
+
+    .season-card p + p { margin-top: 18px; }
+
+    .readiness-list {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .readiness-list div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(246,251,255,.82);
+      font-weight: 700;
+    }
+
+    .readiness-list svg {
+      width: 24px;
+      height: 24px;
+      color: var(--mint);
+      flex: 0 0 auto;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .proof-card {
+      min-height: 300px;
+      padding: 26px;
+      border-radius: 24px;
+      background: var(--white);
+      border: 1px solid rgba(7,24,42,.08);
+      box-shadow: 0 18px 54px rgba(7,24,42,.08);
+    }
+
+    .stars {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 52px;
+      color: var(--gold);
+    }
+
+    .stars svg {
+      width: 19px;
+      height: 19px;
+      fill: currentColor;
+    }
+
+    .faq-shell {
+      display: grid;
+      grid-template-columns: minmax(0, .62fr) minmax(420px, 1fr);
+      gap: 46px;
+      align-items: start;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      overflow: hidden;
+    }
+
+    summary {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 22px;
+      cursor: pointer;
+      font-weight: 740;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #031121;
+      background: var(--cyan);
+      flex: 0 0 auto;
+      transition: transform .2s var(--ease);
+    }
+
+    details[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 22px 22px;
+      color: rgba(246,251,255,.68);
+      max-width: 72ch;
+    }
+
+    .final-cta {
+      position: relative;
+      padding: 96px 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(24,199,255,.24), transparent 38%),
+        linear-gradient(180deg, #071423, var(--night));
+      overflow: hidden;
+    }
+
+    .cta-panel {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: center;
+      padding: 42px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.035)),
+        rgba(255,255,255,.03);
+      box-shadow: 0 34px 110px rgba(0,0,0,.3);
+      overflow: hidden;
+    }
+
+    .cta-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto 8% -42%;
+      height: 80%;
+      background: linear-gradient(90deg, transparent, rgba(24,199,255,.2), rgba(27,207,143,.16), rgba(244,183,67,.14), transparent);
+      filter: blur(34px);
+    }
+
+    .cta-panel > * { position: relative; z-index: 2; }
+
+    .cta-panel h2 {
+      max-width: 760px;
+      font-size: clamp(2.35rem, 4.7vw, 4.75rem);
+    }
+
+    .cta-panel p {
+      max-width: 65ch;
+      margin: 18px 0 0;
+      color: rgba(246,251,255,.68);
+      font-size: 1.05rem;
+    }
+
+    .site-footer {
+      color: rgba(246,251,255,.66);
+      background: var(--night);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 30px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      font-size: .92rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1020px) {
+      .nav-links a:not(.button) { display: none; }
+      .hero-inner,
+      .insight-grid,
+      .video-section,
+      .season-wrap,
+      .faq-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding: 58px 0 74px;
+      }
+
+      h1 {
+        max-width: 12ch;
+        font-size: clamp(3.5rem, 13vw, 5.9rem);
+      }
+
+      .hero-visual { min-height: 560px; }
+      .hero-frame { inset: 0; }
+      .section-head { grid-template-columns: 1fr; gap: 18px; }
+      .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .process-grid, .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cta-panel { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+      .container { width: 100%; max-width: var(--max); padding-inline: 20px; }
+      .nav { min-height: 66px; }
+      .brand span { font-size: .98rem; }
+      .brand img { width: 34px; height: 34px; }
+      .nav-links .button { min-height: 42px; padding: 12px 14px; font-size: .82rem; }
+
+      .hero {
+        background:
+          radial-gradient(ellipse at 64% 34%, rgba(24, 199, 255, .23), transparent 36%),
+          radial-gradient(ellipse at 86% 74%, rgba(27, 207, 143, .17), transparent 30%),
+          linear-gradient(145deg, #020814 0%, #051428 48%, #020814 100%);
+      }
+
+      .hero-inner {
+        gap: 26px;
+        padding: 34px 0 48px;
+      }
+
+      .eyebrow,
+      .section-kicker {
+        font-size: .68rem;
+        letter-spacing: .1em;
+      }
+
+      h1 {
+        max-width: 12ch;
+        margin: 14px 0 16px;
+        font-size: clamp(2.65rem, 12.5vw, 3.35rem);
+        line-height: 1.13;
+      }
+
+      .hero-lead {
+        max-width: 100%;
+        color: rgba(246,251,255,.84);
+        font-size: 1.03rem;
+        line-height: 1.58;
+        overflow-wrap: break-word;
+      }
+
+      .hero-copy,
+      .hero-note,
+      .section-head,
+      .section-head p,
+      .trust-item,
+      .bento-card,
+      .process-card,
+      .proof-card,
+      .season-card,
+      .cta-panel {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .button {
+        width: 100%;
+        min-height: 52px;
+        padding-inline: 16px;
+      }
+
+      .nav-links .button {
+        width: auto;
+        max-width: none;
+      }
+
+      .hero-note {
+        color: rgba(246,251,255,.76);
+        font-size: .86rem;
+        line-height: 1.55;
+        overflow-wrap: break-word;
+      }
+      .hero-visual { min-height: 360px; max-width: 100%; overflow: hidden; }
+      .hero-frame {
+        inset: 0;
+        border-radius: 28px;
+      }
+
+      .hero-frame img {
+        width: 112%;
+        max-width: none;
+        transform: translate(-4%, 12px);
+      }
+
+      .operator-card {
+        left: 5%;
+        bottom: 5%;
+        width: 72%;
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .operator-card strong { font-size: .92rem; }
+      .operator-card span { font-size: .8rem; }
+      .signal-card {
+        right: 4%;
+        top: 5%;
+        min-height: 46px;
+        padding: 8px 11px 8px 8px;
+        font-size: .82rem;
+      }
+
+      .signal-card svg { width: 30px; height: 30px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust-item { grid-column: auto; min-height: 112px; }
+      .section { padding: 64px 0; }
+      h2 {
+        font-size: clamp(2.25rem, 11vw, 3.25rem);
+        line-height: 1.1;
+      }
+
+      .insight-panel,
+      .energy-loop,
+      .season-card,
+      .proof-card {
+        padding: 22px;
+        border-radius: 22px;
+      }
+
+      .loop-row { grid-template-columns: 1fr; }
+      .bento { grid-template-columns: 1fr; }
+      .bento-card,
+      .bento-card.large,
+      .bento-card.tall,
+      .bento-card.wide {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 250px;
+      }
+
+      .campaign-mock {
+        left: 22px;
+        right: 22px;
+        bottom: 22px;
+        grid-template-columns: 1fr;
+      }
+
+      .bento-card.large { min-height: 520px; }
+      .process-grid,
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-card { min-height: 250px; }
+      .icon-badge, .stars { margin-bottom: 34px; }
+      .asset-board {
+        min-height: 520px;
+        border-radius: 26px;
+      }
+
+      .phone-card {
+        left: 8%;
+        top: 9%;
+        width: 190px;
+        height: 318px;
+      }
+
+      .video-card {
+        right: 5%;
+        top: 22%;
+        width: 190px;
+      }
+
+      .share-card {
+        left: 8%;
+        right: auto;
+        bottom: 8%;
+        width: min(310px, 84%);
+      }
+
+      .faq-shell { gap: 28px; }
+      summary { padding: 18px; }
+      details p { padding: 0 18px 20px; }
+      .cta-panel {
+        padding: 26px;
+        border-radius: 26px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .nav { gap: 12px; }
+      .brand span { display: none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="#top"><span class="logo" aria-hidden="true"></span><span>Sports Raise</span></a>
-      <div class="nav-links">
-        <a href="#how">How it works</a>
-        <a href="#benefits">Benefits</a>
-        <a href="#pages">Pages</a>
-        <a class="btn btn-primary" href="#early-access">Join early access</a>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-page" viewBox="0 0 24 24">
+      <rect x="4" y="3" width="16" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="M8 8h8M8 12h6M8 16h4" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24">
+      <circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="m8.6 10.6 6.8-4.2M8.6 13.4l6.8 4.2" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-credit" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="M3 10h18M8 15h3" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-trophy" viewBox="0 0 24 24">
+      <path d="M8 4h8v5a4 4 0 0 1-8 0V4Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+      <path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 13v4M9 20h6M8 17h8" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+      <path d="M4 19V5M4 19h16" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+      <path d="m7 15 3-4 3 2 5-7" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24">
+      <path d="M9 7.5v9l7-4.5-7-4.5Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-field" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.35"/>
+      <path d="M12 5v14M7 9v6M17 9v6" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24">
+      <path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+      <path d="m18 15 .8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8L18 15Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 3 20 6v5c0 5-3.2 8.4-8 10-4.8-1.6-8-5-8-10V6l8-3Z" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linejoin="round"/>
+      <path d="m8.5 12 2.2 2.2 4.8-5" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24">
+      <path d="m12 2.7 2.9 6 6.6 1-4.8 4.7 1.1 6.6-5.8-3.1L6.2 21l1.1-6.6-4.8-4.7 6.6-1 2.9-6Z"/>
+    </symbol>
+  </svg>
+
+  <div class="page">
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="Sports Raise home">
+          <img src="assets/logo-main.svg" alt="" />
+          <span>Sports Raise</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#system">System</a>
+          <a href="#how">How it works</a>
+          <a href="#video">Sharing</a>
+          <a href="#football">Football season</a>
+          <a class="button primary" href="onboarding.html">Start a pilot campaign</a>
+        </nav>
       </div>
-    </div>
-  </nav>
+    </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow"><span></span> Charitable giving meets game-day energy</div>
-          <h1>Turn fan picks into real funding for causes.</h1>
-          <p class="hero-lede">Sports Raise is a fundraising platform where supporters donate to earn sports-wagering-style credits, play friendly prediction contests, and redeem donated prizes, memorabilia, and experiences — without asking charities to become gambling operators.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#early-access">Build the first campaign</a>
-            <a class="btn btn-ghost" href="#how">See the walkthrough</a>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-inner">
+          <div class="hero-copy" data-reveal>
+            <div class="eyebrow">Built for campaign operators</div>
+            <h1 id="hero-title">Bring fans back every game day.</h1>
+            <p class="hero-lead">Sports Raise helps organizers turn picks, predictions, donated rewards, and visible impact into repeat contributions for causes that matter.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="onboarding.html">Start a pilot campaign <svg><use href="#icon-arrow"/></svg></a>
+              <a class="button secondary" href="#how">See the operator flow <svg><use href="#icon-arrow"/></svg></a>
+            </div>
+            <p class="hero-note">Donation-first campaign play with non-cash credits, supporter challenges, donated rewards, and impact reporting.</p>
           </div>
-          <div class="trust-row" aria-label="core positioning">
-            <span><strong>For charities:</strong> new donor energy</span>
-            <span><strong>For fans:</strong> fun credits + prizes</span>
-            <span><strong>For brands:</strong> donated inventory with impact</span>
-          </div>
-        </div>
 
-        <div class="hero-stage" aria-label="3D product walkthrough showing Sports Raise pages and benefits">
-          <div class="field-orbit" aria-hidden="true"></div>
-          <div class="path" aria-hidden="true">
-            <svg viewBox="0 0 680 620" role="img">
-              <defs><linearGradient id="grad" x1="0" x2="1"><stop stop-color="#533afd"/><stop offset=".45" stop-color="#f96bee"/><stop offset="1" stop-color="#15be53"/></linearGradient></defs>
-              <path class="path-line" d="M126 138 C 272 42, 446 64, 536 166 S 620 382, 458 448 S 194 556, 142 414 S 240 206, 384 220"/>
-            </svg>
-          </div>
-          <span class="orb one" aria-hidden="true"></span><span class="orb two" aria-hidden="true"></span>
-          <div class="hero-phone">
-            <div class="phone-screen">
-              <div class="phone-top"><small>FAN DASHBOARD</small><b>Sunday Raise</b></div>
-              <div class="ticket">
-                <div class="teams"><span class="team-dot" style="background:#533afd">KC</span><b>Predict the drive</b><span class="team-dot" style="background:#ea2261">SF</span></div>
-                <div class="pick-line"><i></i></div>
-                <small style="color:#64748d">Use credits earned from a donation. Win entries toward donated rewards.</small>
-              </div>
-              <div class="donate-card"><span>Raised for youth sports access</span><strong>$18,420</strong></div>
-              <div class="page-tabs"><div>Donate</div><div>Play</div><div>Redeem</div></div>
-              <div class="ticket"><b style="font-weight:500">Next reward drop</b><div class="fake-card"></div></div>
+          <div class="hero-visual" data-reveal>
+            <div class="hero-frame" aria-hidden="true">
+              <img src="assets/sports-raise-3d-hero.png" alt="" />
+            </div>
+            <div class="signal-card">
+              <svg><use href="#icon-trophy"/></svg>
+              Donated reward pool live
+            </div>
+            <div class="operator-card">
+              <strong>Week 1 cause challenge</strong>
+              <span>Supporters donate, receive credits, make picks, and return for the leaderboard.</span>
+              <div class="progress-track" aria-hidden="true"><i></i></div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="floating-panel panel-prizes">
-            <div class="panel-title">Prize marketplace <span class="pill">donated</span></div>
-            <div class="prize-row"><div class="prize-img">🏈</div><div><b>Signed team ball</b><small>Local sponsor reward</small></div><span class="credit-chip">2,400 CR</span></div>
-            <div class="prize-row"><div class="prize-img">🎟️</div><div><b>Suite night raffle</b><small>Premium experience</small></div><span class="credit-chip">8,000 CR</span></div>
-            <div class="prize-row"><div class="prize-img">👕</div><div><b>Game-worn jersey</b><small>Memorabilia drop</small></div><span class="credit-chip">5,600 CR</span></div>
-          </div>
-
-          <div class="floating-panel panel-donor">
-            <div class="panel-title">Campaign control room <span class="pill">live</span></div>
-            <div class="mini-chart"><span style="height:36%"></span><span style="height:52%"></span><span style="height:44%"></span><span style="height:78%"></span><span style="height:64%"></span><span style="height:90%"></span></div>
-            <div class="impact-line"><span>Donations this week</span><strong>$7,830</strong></div>
-            <div class="impact-line"><span>New supporters</span><strong>314</strong></div>
-          </div>
-
-          <div class="floating-panel panel-impact">
-            <div class="panel-title">Impact receipt</div>
-            <div class="impact-line"><span>Donation</span><strong>$25</strong></div>
-            <div class="impact-line"><span>Credits earned</span><strong>250</strong></div>
-            <div class="impact-line"><span>Cause funded</span><strong>Equipment grants</strong></div>
+      <section class="trust-strip" aria-label="Campaign capabilities">
+        <div class="container">
+          <div class="trust-grid">
+            <div class="trust-item"><svg><use href="#icon-page"/></svg><strong>Campaign pages</strong></div>
+            <div class="trust-item"><svg><use href="#icon-share"/></svg><strong>One-click sharing</strong></div>
+            <div class="trust-item"><svg><use href="#icon-credit"/></svg><strong>Non-cash credits</strong></div>
+            <div class="trust-item"><svg><use href="#icon-trophy"/></svg><strong>Donated rewards</strong></div>
+            <div class="trust-item"><svg><use href="#icon-chart"/></svg><strong>Impact reporting</strong></div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="how" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="kicker">Walkthrough</div>
-          <h2>A giving loop designed for fans, not forms.</h2>
-          <p>The product turns a standard donation into a repeatable, game-day engagement loop: give, receive credits, make picks, redeem donated rewards, then come back for the next campaign.</p>
-        </div>
-        <div class="steps">
-          <article class="step-card"><div class="num">01</div><h3>Choose a cause</h3><p>Supporters pick a campaign: youth sports, school athletics, medical foundations, disaster relief, or team-backed nonprofits.</p></article>
-          <article class="step-card"><div class="num">02</div><h3>Donate for credits</h3><p>Every eligible donation unlocks non-cash Sports Raise credits that create participation, not financial payout.</p></article>
-          <article class="step-card"><div class="num">03</div><h3>Play prediction contests</h3><p>Fans use credits on sports-style picks, brackets, and game-day challenges that make giving feel active.</p></article>
-          <article class="step-card"><div class="num">04</div><h3>Redeem donated prizes</h3><p>Credits and entries unlock donated memorabilia, sponsor goods, VIP experiences, and campaign-specific rewards.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="benefits" class="dark-band">
-      <div class="container dark-grid">
-        <div class="section-header" style="margin:0">
-          <div class="kicker" style="color:#b9b9f9">Why it works</div>
-          <h2>More excitement than a donate button. More purpose than a sportsbook.</h2>
-          <p>Sports Raise borrows the engagement mechanics fans already understand, then points that attention toward fundraising, sponsor goodwill, and community outcomes.</p>
-        </div>
-        <div class="benefits">
-          <div class="benefit"><b>For nonprofits</b><span>Campaign pages get a reason for supporters to return throughout a season, not just during one pledge drive.</span></div>
-          <div class="benefit"><b>For fans</b><span>Giving feels participatory: credits, picks, leaderboards, drops, and rewards add a game layer to generosity.</span></div>
-          <div class="benefit"><b>For sponsors</b><span>Brands can donate prizes and experiences while being visibly connected to measurable community impact.</span></div>
-          <div class="benefit"><b>For teams & athletes</b><span>Memorabilia and access become a structured way to mobilize fan bases for causes they care about.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="pages" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="kicker">Product surfaces</div>
-          <h2>The landing page hero previews the actual pages users will move through.</h2>
-          <p>These are draft surfaces, but they establish the core product narrative: campaign discovery, fan play, reward redemption, and transparent impact.</p>
-        </div>
-        <div class="mock-pages">
-          <article class="mock"><div class="mock-head"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><h3>Campaign page</h3><p>Cause story, fundraising progress, sponsor rewards, and simple donation-to-credit conversion.</p><div class="fake-row"></div><div class="fake-row"></div><div class="fake-card"></div></div></article>
-          <article class="mock"><div class="mock-head"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><h3>Fan dashboard</h3><p>Credits, active picks, leaderboard position, upcoming contests, and suggested campaigns.</p><div class="fake-card"></div><div class="fake-row"></div><div class="fake-row"></div></div></article>
-          <article class="mock"><div class="mock-head"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><h3>Rewards market</h3><p>Donated prizes, memorabilia, VIP experiences, sponsor drops, and redemption rules.</p><div class="fake-row"></div><div class="fake-card"></div><div class="fake-row"></div></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="early-access" class="cta">
-      <div class="container">
-        <div class="cta-box">
-          <div class="kicker">Draft landing page concept</div>
-          <h2>Launch a campaign that turns every game into a reason to give.</h2>
-          <p>This is an initial visual direction for Sports Raise: premium, trustworthy, energetic, and clear about the donation-first model.</p>
-          <div class="hero-actions" style="justify-content:center; margin-top: 24px">
-            <a class="btn btn-primary" href="mailto:hello@sportsraise.example">Request early access</a>
-            <a class="btn btn-ghost" href="#top">Replay the hero</a>
+      <section class="section light" id="insight">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">The game-day attention shift</div>
+              <h2>Turn game-day attention into repeat impact.</h2>
+            </div>
+            <p>A static donation page asks once. Sports Raise gives supporters a reason to return each matchup, invite friends, and keep the campaign moving through the season.</p>
+          </div>
+          <div class="insight-grid">
+            <article class="insight-panel" data-reveal>
+              <h3>Campaigns become active experiences.</h3>
+              <p>Operators launch a cause page, seed rewards, and invite supporters into picks and challenges tied to the games they already follow.</p>
+            </article>
+            <div class="energy-loop" data-reveal>
+              <div class="loop-row">
+                <div class="loop-node">
+                  <svg><use href="#icon-page"/></svg>
+                  <strong>Launch</strong>
+                  <span>A campaign page centers the cause, story, rules, and reward pool.</span>
+                </div>
+                <div class="loop-node">
+                  <svg><use href="#icon-credit"/></svg>
+                  <strong>Donate</strong>
+                  <span>Supporters contribute and receive non-cash credits for campaign play.</span>
+                </div>
+                <div class="loop-node">
+                  <svg><use href="#icon-field"/></svg>
+                  <strong>Play</strong>
+                  <span>Picks, predictions, and challenges create repeat game-day moments.</span>
+                </div>
+                <div class="loop-node">
+                  <svg><use href="#icon-chart"/></svg>
+                  <strong>Report</strong>
+                  <span>Leaderboards, updates, and impact keep the mission visible.</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <footer>
-    <div class="container"><span>© Sports Raise — concept landing page</span><span>Donation-first. Fan-powered. Prize-backed.</span></div>
-  </footer>
+      <section class="section dark" id="system">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">The operator system</div>
+              <h2>Run the whole campaign from one game-day system.</h2>
+            </div>
+            <p>Sports Raise is built around the person operating the campaign: setup, sharing, supporter activity, reward momentum, and impact proof in one loop.</p>
+          </div>
+          <div class="bento">
+            <article class="bento-card large" data-reveal>
+              <svg><use href="#icon-page"/></svg>
+              <h3>Campaign page built for contribution and return visits.</h3>
+              <p>Tell the cause story, show the reward pool, explain campaign play, and keep supporters close to the next game-day challenge.</p>
+              <div class="campaign-mock" aria-hidden="true">
+                <div class="mock-panel">
+                  <div class="mock-line blue"></div>
+                  <div class="mock-line"></div>
+                  <div class="mock-line short"></div>
+                  <div class="mock-line green"></div>
+                </div>
+                <div class="mock-panel">
+                  <div class="mock-line gold"></div>
+                  <div class="mock-line"></div>
+                  <div class="mock-line blue"></div>
+                  <div class="mock-line short"></div>
+                </div>
+              </div>
+            </article>
+            <article class="bento-card tall" data-reveal>
+              <svg><use href="#icon-share"/></svg>
+              <h3>Sharing toolkit</h3>
+              <p>Ready-to-send posts, links, and short campaign assets help operators activate every channel quickly.</p>
+            </article>
+            <article class="bento-card" data-reveal>
+              <svg><use href="#icon-field"/></svg>
+              <h3>Game-day challenges</h3>
+              <p>Picks and predictions create a weekly reason to return.</p>
+            </article>
+            <article class="bento-card" data-reveal>
+              <svg><use href="#icon-trophy"/></svg>
+              <h3>Reward pool</h3>
+              <p>Use donated items, sponsor perks, experiences, and starter prizes.</p>
+            </article>
+            <article class="bento-card wide" data-reveal>
+              <svg><use href="#icon-chart"/></svg>
+              <h3>Impact dashboard</h3>
+              <p>Show contribution momentum, supporter activity, campaign reach, and cause updates without burying the mission.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section light" id="how">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">From idea to kickoff</div>
+              <h2>Launch the campaign before kickoff.</h2>
+            </div>
+            <p>The workflow keeps operators focused on the cause while Sports Raise handles the repeat engagement mechanics.</p>
+          </div>
+          <div class="process-grid">
+            <article class="process-card" data-reveal>
+              <div class="icon-badge"><svg><use href="#icon-page"/></svg></div>
+              <h3>Build the cause page.</h3>
+              <p>Add the campaign story, goal, impact plan, and the first games or challenges supporters can join.</p>
+            </article>
+            <article class="process-card" data-reveal>
+              <div class="icon-badge"><svg><use href="#icon-trophy"/></svg></div>
+              <h3>Seed the prize pool.</h3>
+              <p>Use donated memorabilia, local perks, sponsor packages, experiences, or starter rewards for early pilots.</p>
+            </article>
+            <article class="process-card" data-reveal>
+              <div class="icon-badge"><svg><use href="#icon-credit"/></svg></div>
+              <h3>Invite supporters in.</h3>
+              <p>Supporters donate, receive non-cash credits, and join campaign play without the cause losing center stage.</p>
+            </article>
+            <article class="process-card" data-reveal>
+              <div class="icon-badge"><svg><use href="#icon-chart"/></svg></div>
+              <h3>Report every week.</h3>
+              <p>Leaderboards, impact updates, and shareable moments keep the campaign visible after each matchup.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark" id="video">
+        <div class="container video-section">
+          <div class="video-copy" data-reveal>
+            <div class="section-kicker">Sharing and short-form video</div>
+            <h2>Give operators assets they can actually use.</h2>
+            <p>Early campaigns need speed. Sports Raise is designed for share links, game-day posts, reward highlights, and AI-ready short videos that help a cause look serious before the first kickoff.</p>
+          </div>
+          <div class="asset-board" data-reveal aria-label="Campaign asset preview">
+            <div class="phone-card">
+              <div class="phone-screen">
+                <span class="asset-title">Cause story reel</span>
+                <span class="asset-copy">A vertical campaign video frame built for supporter feeds.</span>
+              </div>
+            </div>
+            <div class="video-card">
+              <div class="play"><svg><use href="#icon-play"/></svg></div>
+              <span class="asset-title">Reward highlight</span>
+              <span class="asset-copy">Show the prize pool without making rewards bigger than impact.</span>
+            </div>
+            <div class="share-card">
+              <span class="asset-title">One campaign, many channels</span>
+              <span class="asset-copy">Text, social, email, and team group links ready for launch day.</span>
+              <div class="share-row" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section light" id="football">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">Football-season ready</div>
+              <h2>Build momentum before kickoff.</h2>
+            </div>
+            <p>Football gives operators a natural launch window: schedules, rivalry weeks, leaderboards, reward drops, and impact updates all become reasons to bring supporters back.</p>
+          </div>
+          <div class="season-wrap">
+            <article class="season-card feature" data-reveal>
+              <h3>Designed for the first 5-10 pilots.</h3>
+              <p>Sports Raise can support focused early campaigns with clear setup, simple game-day activity, and reward pools that feel real from day one.</p>
+              <div class="readiness-list">
+                <div><svg><use href="#icon-shield"/></svg>Donation-first public framing</div>
+                <div><svg><use href="#icon-field"/></svg>Upcoming game challenges</div>
+                <div><svg><use href="#icon-spark"/></svg>Reward drops and campaign updates</div>
+              </div>
+            </article>
+            <article class="season-card" data-reveal>
+              <h3>Keep supporter energy pointed at impact.</h3>
+              <p>Each week can bring a new challenge, a leaderboard update, a prize pool reminder, and a fresh reason to share the campaign with another fan.</p>
+              <p>The result is a fundraiser that feels alive throughout the season without drifting away from the cause.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section light" id="proof">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div>
+              <div class="section-kicker">Operator confidence</div>
+              <h2>Premium for donors. Practical for operators.</h2>
+            </div>
+            <p>No fake names, no invented case studies. The trust story is the operating model: clear rules, donated rewards, and impact-first communication.</p>
+          </div>
+          <div class="proof-grid">
+            <article class="proof-card" data-reveal>
+              <div class="stars" aria-label="Five star readiness signal">
+                <svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg>
+              </div>
+              <h3>Built around the campaign operator.</h3>
+              <p>Setup, sharing, challenges, rewards, and reporting are framed around running a cause campaign, not running entertainment for its own sake.</p>
+            </article>
+            <article class="proof-card" data-reveal>
+              <div class="stars" aria-label="Five star readiness signal">
+                <svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg>
+              </div>
+              <h3>Language that keeps the mission clear.</h3>
+              <p>Supporter activity uses picks, predictions, challenges, non-cash credits, rewards, leaderboards, and impact updates.</p>
+            </article>
+            <article class="proof-card" data-reveal>
+              <div class="stars" aria-label="Five star readiness signal">
+                <svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg>
+              </div>
+              <h3>Ready for partner reward pools.</h3>
+              <p>Local businesses, sponsors, teams, collectors, and organizers can donate items that turn supporter attention into repeat campaign moments.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark" id="faq">
+        <div class="container faq-shell">
+          <div data-reveal>
+            <div class="section-kicker">Questions operators ask</div>
+            <h2>Clear answers before launch.</h2>
+          </div>
+          <div class="faq-list" data-reveal>
+            <details open>
+              <summary>Who is Sports Raise built for first?</summary>
+              <p>Campaign operators: nonprofits, charitable organizers, community fundraisers, and individuals who want a repeatable sports-driven way to activate supporters.</p>
+            </details>
+            <details>
+              <summary>How do supporters participate after donating?</summary>
+              <p>Supporters receive non-cash credits connected to the campaign, then use them for picks, predictions, and game-day challenges tied to donated rewards and leaderboards.</p>
+            </details>
+            <details>
+              <summary>Where do rewards come from?</summary>
+              <p>Rewards can come from campaign creators, local businesses, sponsors, teams, athletes, memorabilia donors, or starter items used for early campaigns.</p>
+            </details>
+            <details>
+              <summary>Can a campaign launch before all game details are final?</summary>
+              <p>Yes. Operators can launch the cause page, begin sharing, build the supporter list, and seed the prize pool before the first game-day challenge opens.</p>
+            </details>
+            <details>
+              <summary>What makes this different from a normal donation page?</summary>
+              <p>A normal page asks once. Sports Raise creates recurring moments: game schedules, weekly challenges, reward updates, leaderboards, and impact reports.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta" id="contact">
+        <div class="container">
+          <div class="cta-panel" data-reveal>
+            <div>
+              <div class="section-kicker">Pilot campaigns are the next play</div>
+              <h2>Launch before football season.</h2>
+              <p>Bring the cause, the first reward ideas, and the supporter network. Sports Raise will help shape the game-day campaign loop.</p>
+            </div>
+            <a class="button primary" href="onboarding.html">Start a pilot campaign <svg><use href="#icon-arrow"/></svg></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand" href="#top" aria-label="Sports Raise home">
+          <img src="assets/logo-main.svg" alt="" />
+          <span>Sports Raise</span>
+        </a>
+        <div class="footer-links">
+          <a href="#system">System</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:hello@sportsraise.com?subject=Sports%20Raise%20pilot%20campaign">hello@sportsraise.com</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
+  </script>
 </body>
 </html>

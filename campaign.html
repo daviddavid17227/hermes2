@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riverside Youth Athletics | Sports Raise Campaign</title>
+  <style>
+    :root {
+      --night: #020814;
+      --navy: #061424;
+      --elevated: #0a2036;
+      --ink: #07182a;
+      --text: #f6fbff;
+      --muted: rgba(246, 251, 255, .68);
+      --muted-soft: rgba(246, 251, 255, .52);
+      --line: rgba(198, 221, 242, .15);
+      --cyan: #18c7ff;
+      --emerald: #1bcf8f;
+      --mint: #68f2b9;
+      --gold: #f4b743;
+      --cream: #ffe08a;
+      --white: #ffffff;
+      --max: 1180px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--night);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    button { font: inherit; }
+    h1, h2, h3, p { margin-top: 0; }
+    p { line-height: 1.65; }
+
+    .page {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 78% 8%, rgba(24, 199, 255, .24), transparent 32%),
+        radial-gradient(ellipse at 18% 22%, rgba(27, 207, 143, .18), transparent 28%),
+        radial-gradient(ellipse at 84% 78%, rgba(244, 183, 67, .11), transparent 26%),
+        linear-gradient(180deg, #020814 0%, #061424 48%, #020814 100%);
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .29;
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, transparent 0 20%, rgba(255,255,255,.12) 20.5%, transparent 22.5% 40%, rgba(255,255,255,.08) 41%, transparent 43%),
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 100% 100%, 52px 52px, 52px 52px;
+      mask-image: linear-gradient(180deg, #000, #000 58%, transparent 94%);
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: linear-gradient(180deg, rgba(2, 8, 20, .96), rgba(2, 8, 20, .75));
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      color: rgba(246, 251, 255, .8);
+      font-size: .92rem;
+      font-weight: 760;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      box-shadow: 0 0 36px rgba(24, 199, 255, .28);
+    }
+
+    .brand strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.02rem;
+      line-height: 1.1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: rgba(246, 251, 255, .72);
+      font-size: .92rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 4px;
+      white-space: nowrap;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .button,
+    .pick-button {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 15px 22px;
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff 0%, var(--cyan) 50%, #0aa8ff 100%);
+      box-shadow: 0 22px 56px rgba(24, 199, 255, .32), 0 0 0 1px rgba(255, 255, 255, .34) inset;
+      font-size: .96rem;
+      font-weight: 820;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+    }
+
+    .button:hover,
+    .pick-button:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 28px 70px rgba(24, 199, 255, .38), 0 0 0 1px rgba(255, 255, 255, .42) inset;
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      padding: 52px 0 46px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(560px, 1fr);
+      gap: 38px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+      padding: 18px 0;
+    }
+
+    .cause-lockup {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cause-mark {
+      width: 76px;
+      height: 76px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      color: #031121;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.96), rgba(104,242,185,.95) 48%, rgba(24,199,255,.92)),
+        var(--mint);
+      box-shadow: 0 24px 70px rgba(27, 207, 143, .25), 0 0 0 1px rgba(255,255,255,.45) inset;
+    }
+
+    .cause-mark svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #baf4ff;
+      font-size: .76rem;
+      font-weight: 840;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--mint);
+      box-shadow: 0 0 24px rgba(104, 242, 185, .86);
+    }
+
+    h1 {
+      max-width: 10.8ch;
+      margin: 20px 0 20px;
+      font-size: clamp(3.35rem, 7vw, 6.75rem);
+      line-height: 1.03;
+      letter-spacing: 0;
+      font-weight: 730;
+      text-wrap: balance;
+    }
+
+    .hero-lead {
+      max-width: 580px;
+      margin-bottom: 0;
+      color: rgba(246, 251, 255, .78);
+      font-size: clamp(1.04rem, 1.35vw, 1.2rem);
+      line-height: 1.64;
+    }
+
+    .live-strip {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .live-stat {
+      min-height: 104px;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.07);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .live-stat strong,
+    .live-stat span {
+      display: block;
+    }
+
+    .live-stat strong {
+      font-size: clamp(1.35rem, 2.1vw, 2rem);
+      line-height: 1;
+    }
+
+    .live-stat span {
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: .78rem;
+      font-weight: 760;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .campaign-console {
+      position: relative;
+      min-width: 0;
+      border-radius: 34px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035)),
+        rgba(2,8,20,.74);
+      box-shadow: 0 34px 120px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+
+    .campaign-console::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 26px;
+      background:
+        linear-gradient(rgba(104,242,185,.16) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(104,242,185,.12) 2px, transparent 2px),
+        linear-gradient(180deg, rgba(24,199,255,.1), transparent 55%);
+      background-size: 44px 44px, 44px 44px, 100% 100%;
+      transform: perspective(840px) rotateX(58deg);
+      transform-origin: center bottom;
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    .campaign-console::after {
+      content: "";
+      position: absolute;
+      inset: auto -15% -32%;
+      height: 62%;
+      background: linear-gradient(90deg, transparent, rgba(24,199,255,.22), rgba(27,207,143,.18), rgba(244,183,67,.12), transparent);
+      filter: blur(34px);
+      pointer-events: none;
+    }
+
+    .console-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 16px;
+    }
+
+    .progress-card {
+      position: relative;
+      padding: 22px;
+      border-radius: 26px;
+      border: 1px solid rgba(104,242,185,.35);
+      background:
+        radial-gradient(ellipse at 76% 8%, rgba(27,207,143,.24), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.04)),
+        rgba(3,13,26,.86);
+      box-shadow: 0 22px 70px rgba(27,207,143,.14), 0 0 0 1px rgba(255,255,255,.08) inset;
+      overflow: hidden;
+    }
+
+    .progress-top,
+    .matchup-head,
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .matchup-tags {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .matchup-head {
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #061424;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+      font-size: .78rem;
+      font-weight: 860;
+      white-space: nowrap;
+    }
+
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 18px rgba(27, 207, 143, .72);
+    }
+
+    .progress-total {
+      margin: 20px 0 14px;
+      font-size: clamp(3.1rem, 7vw, 5.6rem);
+      line-height: .96;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(246,251,255,.72);
+      font-size: .92rem;
+      font-weight: 760;
+    }
+
+    .progress-track {
+      position: relative;
+      height: 22px;
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+    }
+
+    .progress-fill {
+      position: relative;
+      width: 68%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald) 62%, var(--gold));
+      box-shadow: 0 0 28px rgba(24,199,255,.5);
+      transition: width .45s var(--ease);
+    }
+
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.48) 42%, transparent 54% 100%);
+      animation: shine 2.6s linear infinite;
+    }
+
+    @keyframes shine {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(120%); }
+    }
+
+    .matchup-card {
+      position: relative;
+      padding: 20px;
+      border-radius: 28px;
+      border: 1px solid rgba(24,199,255,.35);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(24,199,255,.19), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035)),
+        rgba(3,13,26,.86);
+      box-shadow: 0 24px 80px rgba(24,199,255,.13), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .matchup-card h2,
+    .rewards h2,
+    .feed h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .week-chip {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #baf4ff;
+      background: rgba(24,199,255,.1);
+      border: 1px solid rgba(24,199,255,.26);
+      font-size: .72rem;
+      font-weight: 860;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .versus {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      margin: 18px 0;
+    }
+
+    .team-card {
+      min-width: 0;
+      min-height: 170px;
+      display: grid;
+      place-items: center;
+      gap: 12px;
+      padding: 18px 12px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.13);
+      backdrop-filter: blur(18px);
+      cursor: pointer;
+      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+    }
+
+    .team-card:hover,
+    .team-card.selected {
+      transform: translateY(-2px);
+      border-color: rgba(104,242,185,.7);
+      background: rgba(27,207,143,.12);
+    }
+
+    .team-badge {
+      width: 78px;
+      height: 78px;
+      display: grid;
+      place-items: center;
+      border-radius: 26px;
+      color: #031121;
+      background: linear-gradient(135deg, #ffffff, #b8efff 45%, var(--cyan));
+      box-shadow: 0 18px 42px rgba(17,120,255,.24);
+    }
+
+    .team-card:nth-child(3) .team-badge {
+      background: linear-gradient(135deg, #ffffff, #b9ffd7 45%, var(--emerald));
+      box-shadow: 0 18px 42px rgba(27,207,143,.22);
+    }
+
+    .team-badge svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    .team-card strong {
+      display: block;
+      max-width: 100%;
+      color: rgba(246,251,255,.92);
+      font-size: 1rem;
+      line-height: 1.2;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .team-card span {
+      color: var(--muted-soft);
+      font-size: .82rem;
+      font-weight: 760;
+    }
+
+    .vs {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #031121;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+      font-size: .92rem;
+      font-weight: 900;
+      box-shadow: 0 18px 42px rgba(244,183,67,.24);
+    }
+
+    .action-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+      padding: 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.07);
+    }
+
+    .action-panel strong {
+      display: block;
+      font-size: 1.13rem;
+      line-height: 1.25;
+    }
+
+    .action-panel span,
+    .pick-state {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.4;
+    }
+
+    .pick-slots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pick-button {
+      min-width: 0;
+      color: #f8fdff;
+      background: rgba(24,199,255,.16);
+      border-color: rgba(186,244,255,.56);
+      box-shadow: 0 16px 42px rgba(0,0,0,.2), 0 0 0 1px rgba(255,255,255,.11) inset;
+    }
+
+    .pick-button.active {
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff, var(--cyan) 50%, var(--emerald));
+      border-color: rgba(255,255,255,.42);
+    }
+
+    .section {
+      position: relative;
+      z-index: 2;
+      padding: 54px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(300px, .42fr);
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .reward-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .reward-card {
+      position: relative;
+      min-height: 260px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
+        rgba(2,8,20,.72);
+      box-shadow: 0 24px 76px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+
+    .reward-card::before {
+      content: "";
+      position: absolute;
+      inset: auto 16px 16px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald), var(--gold));
+      opacity: .78;
+    }
+
+    .reward-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 42px;
+      border-radius: 19px;
+      color: #031121;
+      background: linear-gradient(135deg, #ffffff, #b8efff 45%, var(--cyan));
+      box-shadow: 0 16px 38px rgba(17,120,255,.2);
+    }
+
+    .reward-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .reward-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.24rem;
+      line-height: 1.18;
+    }
+
+    .reward-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+
+    .credit-cost {
+      display: inline-flex;
+      margin-top: 18px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: #061424;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+      font-size: .78rem;
+      font-weight: 880;
+    }
+
+    .feed-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, .55fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .feed-panel {
+      border-radius: 28px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
+        rgba(2,8,20,.74);
+      box-shadow: 0 24px 80px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .activity-list,
+    .leader-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .activity-item,
+    .leader-item {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.065);
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: #031121;
+      background: linear-gradient(135deg, #ffffff, #b9ffd7 45%, var(--emerald));
+      font-size: .86rem;
+      font-weight: 900;
+    }
+
+    .activity-item strong,
+    .leader-item strong {
+      display: block;
+      font-size: .98rem;
+      line-height: 1.25;
+    }
+
+    .activity-item span,
+    .leader-item span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted-soft);
+      font-size: .82rem;
+      line-height: 1.35;
+    }
+
+    .amount,
+    .points {
+      color: var(--mint);
+      font-weight: 880;
+      white-space: nowrap;
+    }
+
+    .site-footer {
+      position: relative;
+      z-index: 2;
+      color: rgba(246,251,255,.66);
+      background: rgba(2,8,20,.78);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 30px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      font-size: .92rem;
+    }
+
+    .footer-inner img {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .feed-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .campaign-console {
+        border-radius: 30px;
+      }
+
+      .reward-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .nav {
+        min-height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        font-size: .84rem;
+      }
+
+      .nav-links a {
+        min-height: 48px;
+        padding: 0 12px;
+      }
+
+      .nav {
+        flex-direction: column;
+      }
+
+      h1 {
+        max-width: 9.5ch;
+        font-size: clamp(3.08rem, 16vw, 4.8rem);
+      }
+
+      .hero-copy {
+        gap: 20px;
+        padding: 0;
+      }
+
+      .hero {
+        padding: 24px 0 34px;
+      }
+
+      h1 {
+        margin: 14px 0 12px;
+      }
+
+      .hero-lead {
+        line-height: 1.5;
+      }
+
+      .pick-slots,
+      .reward-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .live-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .live-stat {
+        min-height: 78px;
+        padding: 12px 10px;
+      }
+
+      .live-stat span {
+        font-size: .68rem;
+      }
+
+      .campaign-console {
+        padding: 14px;
+      }
+
+      .console-content {
+        gap: 12px;
+      }
+
+      .progress-card,
+      .matchup-card {
+        border-radius: 24px;
+        padding: 16px;
+      }
+
+      .matchup-head {
+        align-items: flex-start;
+      }
+
+      .matchup-tags {
+        max-width: 148px;
+      }
+
+      .progress-total {
+        font-size: clamp(2.6rem, 15vw, 4rem);
+        margin: 16px 0 12px;
+      }
+
+      .versus {
+        grid-template-columns: 1fr;
+      }
+
+      .vs {
+        justify-self: center;
+        width: 50px;
+        height: 50px;
+      }
+
+      .team-card {
+        min-height: 132px;
+      }
+
+      .action-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .section {
+        padding: 42px 0;
+      }
+
+      .activity-item,
+      .leader-item {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+
+      .amount,
+      .points {
+        grid-column: 2;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="Sports Raise campaign home">
+          <img src="assets/logo-main.svg" alt="Sports Raise" />
+          <span><strong>Riverside Athletics</strong> Powered by Sports Raise</span>
+        </a>
+        <nav class="nav-links" aria-label="Campaign navigation">
+          <a href="#cause">Cause story</a>
+          <a href="#rewards">Rewards</a>
+          <a href="#leaderboard">Leaderboard</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="cause">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div>
+              <div class="cause-lockup">
+                <div class="cause-mark" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" fill="none">
+                    <path d="M14 44V22l18-10 18 10v22L32 54 14 44Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M22 34h20M32 20v28M22 27l10-5 10 5M22 41l10 5 10-5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="eyebrow">Live community campaign</span>
+              </div>
+              <h1>Support Riverside Game Day.</h1>
+              <p class="hero-lead">Every donation funds travel, meals, and equipment for student athletes. Pick the weekly matchup, collect credits, and turn game day momentum into real support.</p>
+            </div>
+
+            <div class="live-strip" aria-label="Live campaign stats">
+              <div class="live-stat">
+                <strong>312</strong>
+                <span>donors in the drive</span>
+              </div>
+              <div class="live-stat">
+                <strong>68%</strong>
+                <span>of the target funded</span>
+              </div>
+              <div class="live-stat">
+                <strong>24h</strong>
+                <span>left in Week 1 picks</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="campaign-console" aria-label="Campaign progress and matchup">
+            <div class="console-content">
+              <article class="progress-card">
+                <div class="progress-top">
+                  <span class="eyebrow">Goal tracker</span>
+                  <span class="status-pill">Live now</span>
+                </div>
+                <div class="progress-total" id="raisedTotal">$68,420</div>
+                <div class="progress-meta">
+                  <span>Raised toward $100,000</span>
+                  <span id="progressPercent">68%</span>
+                </div>
+                <div class="progress-track" role="progressbar" aria-label="$68,420 raised toward $100,000" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+              </article>
+
+              <article class="matchup-card">
+                <div class="matchup-head">
+                  <h2>Make your picks</h2>
+                  <div class="matchup-tags" aria-label="Week 1 closes Friday">
+                    <span class="week-chip">Week 1</span>
+                    <span class="week-chip">Closes Friday</span>
+                  </div>
+                </div>
+
+                <div class="versus" aria-label="Riverside Falcons versus Northside Knights">
+                  <button class="team-card selected" type="button" data-team="Riverside Falcons" aria-pressed="true">
+                    <span class="team-badge" aria-hidden="true">
+                      <svg viewBox="0 0 64 64" fill="none">
+                        <path d="M13 42c12-2 23-11 31-27 1 12-3 25-15 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 31c11 1 19-3 27-13-2 11-9 22-21 29" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 45c6 3 13 4 22 3" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <strong>Riverside Falcons</strong>
+                    <span>64% supporter picks</span>
+                  </button>
+                  <div class="vs">VS</div>
+                  <button class="team-card" type="button" data-team="Northside Knights" aria-pressed="false">
+                    <span class="team-badge" aria-hidden="true">
+                      <svg viewBox="0 0 64 64" fill="none">
+                        <path d="M32 8l18 8v14c0 12-7 21-18 26-11-5-18-14-18-26V16l18-8Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+                        <path d="M23 30h18M32 20v26" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <strong>Northside Knights</strong>
+                    <span>36% supporter picks</span>
+                  </button>
+                </div>
+
+                <div class="action-panel">
+                  <div>
+                    <strong>Donate $100 -> Get 100 Credits.</strong>
+                    <span id="pickState">Pick Riverside Falcons to boost your impact.</span>
+                  </div>
+                  <button class="button" id="donateButton" type="button">Donate $100</button>
+                </div>
+
+                <div class="pick-slots">
+                  <button class="pick-button active" type="button" data-pick="Riverside Falcons">Pick Falcons</button>
+                  <button class="pick-button" type="button" data-pick="Northside Knights">Pick Knights</button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section rewards" id="rewards">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Reward gallery</span>
+              <h2>Spend credits on game day access.</h2>
+            </div>
+            <p>Credits turn giving into participation. Donors can claim perks, chase limited drops, or keep credits on the leaderboard.</p>
+          </div>
+
+          <div class="reward-grid">
+            <article class="reward-card">
+              <div class="reward-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M22 10h20l10 9-8 11v24H20V30l-8-11 10-9Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M26 10c1 5 4 8 6 8s5-3 6-8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Team Jersey</h3>
+              <p>Limited Riverside alternate jersey reserved for early supporters.</p>
+              <span class="credit-cost">850 credits</span>
+            </article>
+
+            <article class="reward-card">
+              <div class="reward-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M14 24h36v26H14V24Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M22 24V14h20v10M22 36h20" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+              </div>
+              <h3>VIP Access</h3>
+              <p>Pre-game sideline pass and hospitality tent entry for two.</p>
+              <span class="credit-cost">1,400 credits</span>
+            </article>
+
+            <article class="reward-card">
+              <div class="reward-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M20 48l4-16-12-10 16-1 4-15 6 15 14 1-12 10 4 16-12-9-12 9Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>Captain Shoutout</h3>
+              <p>Your family name announced during the fourth-quarter drive.</p>
+              <span class="credit-cost">500 credits</span>
+            </article>
+
+            <article class="reward-card">
+              <div class="reward-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M16 18h32v28H16V18Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M22 52h20M32 46v6M24 26h16M24 34h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Film Room Invite</h3>
+              <p>Join coaches for a private breakdown after rivalry week.</p>
+              <span class="credit-cost">1,100 credits</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feed" id="leaderboard">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Impact feed</span>
+              <h2>Every gift moves the board.</h2>
+            </div>
+            <p>Recent donations and weekly leaders keep the campaign visibly alive from kickoff to the final whistle.</p>
+          </div>
+
+          <div class="feed-grid">
+            <article class="feed-panel">
+              <div class="panel-head">
+                <h3>Recent donors</h3>
+                <span class="week-chip">Updating live</span>
+              </div>
+              <div class="activity-list" id="activityList">
+                <div class="activity-item">
+                  <span class="avatar">MJ</span>
+                  <div><strong>Maya Johnson</strong><span>Picked Falcons and unlocked 100 credits</span></div>
+                  <span class="amount">$100</span>
+                </div>
+                <div class="activity-item">
+                  <span class="avatar">CR</span>
+                  <div><strong>Coach Rivera</strong><span>Boosted the travel fund</span></div>
+                  <span class="amount">$250</span>
+                </div>
+                <div class="activity-item">
+                  <span class="avatar">AL</span>
+                  <div><strong>Avery Lee</strong><span>Claimed a Captain Shoutout</span></div>
+                  <span class="amount">$75</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="feed-panel">
+              <div class="panel-head">
+                <h3>Point leaders</h3>
+                <span class="week-chip">Week 1</span>
+              </div>
+              <div class="leader-list">
+                <div class="leader-item">
+                  <span class="avatar">1</span>
+                  <div><strong>The Martinez Family</strong><span>VIP Access in reach</span></div>
+                  <span class="points">1,860</span>
+                </div>
+                <div class="leader-item">
+                  <span class="avatar">2</span>
+                  <div><strong>Riverside Boosters</strong><span>Three-match pick streak</span></div>
+                  <span class="points">1,520</span>
+                </div>
+                <div class="leader-item">
+                  <span class="avatar">3</span>
+                  <div><strong>Jordan Kim</strong><span>Early jersey claimant</span></div>
+                  <span class="points">940</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <img src="assets/logo-main.svg" alt="Sports Raise" />
+        <span>Riverside Youth Athletics campaign surface powered by Sports Raise.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const state = {
+      raised: 68420,
+      goal: 100000,
+      pick: 'Riverside Falcons'
+    };
+
+    const raisedTotal = document.querySelector('#raisedTotal');
+    const progressFill = document.querySelector('#progressFill');
+    const progressPercent = document.querySelector('#progressPercent');
+    const pickState = document.querySelector('#pickState');
+    const activityList = document.querySelector('#activityList');
+    const teamButtons = document.querySelectorAll('.team-card');
+    const pickButtons = document.querySelectorAll('.pick-button');
+
+    function formatMoney(value) {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+    }
+
+    function renderProgress() {
+      const percent = Math.min(100, Math.round((state.raised / state.goal) * 100));
+      raisedTotal.textContent = formatMoney(state.raised);
+      progressFill.style.width = `${percent}%`;
+      progressPercent.textContent = `${percent}%`;
+      progressFill.parentElement.setAttribute('aria-valuenow', String(percent));
+      progressFill.parentElement.setAttribute('aria-label', `${formatMoney(state.raised)} raised toward ${formatMoney(state.goal)}`);
+    }
+
+    function setPick(team) {
+      state.pick = team;
+      teamButtons.forEach((button) => {
+        const selected = button.dataset.team === team;
+        button.classList.toggle('selected', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+      pickButtons.forEach((button) => {
+        button.classList.toggle('active', button.dataset.pick === team);
+      });
+      pickState.textContent = `Pick ${team} to boost your impact.`;
+    }
+
+    function addDonation() {
+      state.raised += 100;
+      renderProgress();
+
+      const initials = state.pick === 'Riverside Falcons' ? 'RF' : 'NK';
+      const item = document.createElement('div');
+      item.className = 'activity-item';
+      item.innerHTML = `
+        <span class="avatar">${initials}</span>
+        <div><strong>New supporter</strong><span>Picked ${state.pick} and unlocked 100 credits</span></div>
+        <span class="amount">$100</span>
+      `;
+      activityList.prepend(item);
+      [...activityList.children].slice(4).forEach((child) => child.remove());
+    }
+
+    teamButtons.forEach((button) => {
+      button.addEventListener('click', () => setPick(button.dataset.team));
+    });
+
+    pickButtons.forEach((button) => {
+      button.addEventListener('click', () => setPick(button.dataset.pick));
+    });
+
+    document.querySelector('#donateButton').addEventListener('click', addDonation);
+
+    renderProgress();
+  </script>
+</body>
+</html>

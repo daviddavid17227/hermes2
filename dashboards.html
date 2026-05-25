@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Raise | Account Dashboards</title>
+  <style>
+    :root {
+      --night: #020814;
+      --navy: #061424;
+      --elevated: #0a2036;
+      --elevated-2: #0d2946;
+      --ink: #07182a;
+      --text: #f6fbff;
+      --muted: rgba(246, 251, 255, .68);
+      --soft: rgba(246, 251, 255, .5);
+      --line: rgba(198, 221, 242, .15);
+      --line-strong: rgba(198, 221, 242, .26);
+      --cyan: #18c7ff;
+      --blue: #1178ff;
+      --emerald: #1bcf8f;
+      --mint: #68f2b9;
+      --gold: #f4b743;
+      --cream: #ffe08a;
+      --danger: #ff6b7a;
+      --max: 1220px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      color: var(--text);
+      background: var(--night);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img, svg { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin-top: 0; }
+    p { line-height: 1.55; }
+
+    .page {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 78% 4%, rgba(24, 199, 255, .24), transparent 32%),
+        radial-gradient(ellipse at 12% 20%, rgba(27, 207, 143, .16), transparent 28%),
+        radial-gradient(ellipse at 86% 82%, rgba(244, 183, 67, .12), transparent 26%),
+        linear-gradient(180deg, #020814 0%, #061424 50%, #020814 100%);
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .28;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(115deg, transparent 0 18%, rgba(255,255,255,.1) 18.5%, transparent 20.5% 43%, rgba(255,255,255,.07) 43.5%, transparent 45.5%);
+      background-size: 52px 52px, 52px 52px, 100% 100%;
+      mask-image: linear-gradient(180deg, #000, #000 64%, transparent 96%);
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      background: linear-gradient(180deg, rgba(2, 8, 20, .96), rgba(2, 8, 20, .72));
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      font-size: 1.03rem;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      box-shadow: 0 0 36px rgba(24, 199, 255, .28);
+    }
+
+    .preview-toggle {
+      width: min(100%, 380px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .07);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .2);
+    }
+
+    .toggle-button {
+      min-height: 42px;
+      border: 0;
+      border-radius: 999px;
+      color: rgba(246, 251, 255, .72);
+      background: transparent;
+      font-size: .9rem;
+      font-weight: 780;
+      cursor: pointer;
+      transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+
+    .toggle-button.active {
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff 0%, var(--cyan) 50%, #0aa8ff 100%);
+      box-shadow: 0 16px 42px rgba(24, 199, 255, .28);
+    }
+
+    .dashboard {
+      position: relative;
+      z-index: 2;
+      display: none;
+      padding: 46px 0 72px;
+    }
+
+    .dashboard.active { display: block; }
+
+    .view-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: #baf4ff;
+      font-size: .76rem;
+      font-weight: 840;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 24px rgba(27, 207, 143, .86);
+    }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: 10px;
+      font-size: 4.35rem;
+      line-height: 1;
+      letter-spacing: 0;
+      font-weight: 860;
+      text-wrap: balance;
+    }
+
+    .view-head p {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .account-chip {
+      min-width: 255px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(10, 32, 54, .72);
+      backdrop-filter: blur(16px);
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #031121;
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+      font-weight: 900;
+    }
+
+    .avatar.fan {
+      background: linear-gradient(135deg, var(--mint), var(--cyan));
+    }
+
+    .chip-label {
+      display: block;
+      color: var(--soft);
+      font-size: .76rem;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .chip-name {
+      display: block;
+      color: var(--text);
+      font-size: .95rem;
+      font-weight: 820;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.045)),
+        rgba(10, 32, 54, .78);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, .28), 0 0 0 1px rgba(255,255,255,.045) inset;
+      backdrop-filter: blur(18px);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 22px 0;
+    }
+
+    .panel-kicker {
+      margin-bottom: 6px;
+      color: var(--soft);
+      font-size: .74rem;
+      font-weight: 840;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin-bottom: 0;
+      font-size: 1.18rem;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .status {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(104, 242, 185, .34);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: #bfffe6;
+      background: rgba(27, 207, 143, .1);
+      font-size: .74rem;
+      font-weight: 860;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 16px rgba(27, 207, 143, .9);
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 13px 18px;
+      color: #031121;
+      background: linear-gradient(135deg, #7cf0ff 0%, var(--cyan) 48%, #0aa8ff 100%);
+      box-shadow: 0 20px 52px rgba(24, 199, 255, .28), 0 0 0 1px rgba(255,255,255,.34) inset;
+      font-size: .92rem;
+      font-weight: 820;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 26px 64px rgba(24, 199, 255, .34), 0 0 0 1px rgba(255,255,255,.42) inset;
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 14px 36px rgba(0,0,0,.18);
+    }
+
+    .button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .fan-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .campaign-switcher {
+      min-height: 650px;
+      overflow: hidden;
+    }
+
+    .switcher-hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(300px, .58fr);
+      gap: 20px;
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(24, 199, 255, .22), transparent 35%),
+        linear-gradient(135deg, rgba(17, 120, 255, .18), rgba(27, 207, 143, .08));
+    }
+
+    .switcher-hero h2 {
+      margin: 0 0 16px;
+      font-size: 2.2rem;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .campaign-quick-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .campaign-quick {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px 7px 7px;
+      color: var(--text);
+      background: rgba(2, 8, 20, .34);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color .2s ease, background .2s ease, transform .2s var(--ease);
+    }
+
+    .campaign-quick:hover {
+      transform: translateY(-1px);
+      border-color: rgba(24, 199, 255, .5);
+      background: rgba(255,255,255,.08);
+    }
+
+    .campaign-quick.active {
+      border-color: rgba(24, 199, 255, .72);
+      background: rgba(24, 199, 255, .12);
+    }
+
+    .campaign-quick .team-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      font-size: .78rem;
+    }
+
+    .quick-copy {
+      display: grid;
+      gap: 2px;
+    }
+
+    .quick-copy strong {
+      color: var(--text);
+      font-size: .84rem;
+      line-height: 1;
+    }
+
+    .quick-copy span {
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 740;
+    }
+
+    .wallet-card {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 186px;
+      padding: 22px;
+      border: 1px solid rgba(104, 242, 185, .2);
+      border-radius: 22px;
+      background: rgba(2, 8, 20, .48);
+      box-shadow: 0 20px 60px rgba(0,0,0,.22) inset;
+    }
+
+    .wallet-value {
+      display: block;
+      font-size: 3rem;
+      line-height: .95;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .wallet-label {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 740;
+    }
+
+    .wallet-breakdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mini-stat {
+      min-height: 68px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+    }
+
+    .mini-stat strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .mini-stat span {
+      color: var(--soft);
+      font-size: .78rem;
+      font-weight: 720;
+    }
+
+    .campaign-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 20px 24px;
+      background: rgba(2, 8, 20, .2);
+    }
+
+    .campaign-tab {
+      min-height: 124px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      color: var(--text);
+      background: rgba(255,255,255,.065);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color .2s ease, background .2s ease, transform .2s var(--ease), box-shadow .2s ease;
+    }
+
+    .campaign-tab:hover {
+      transform: translateY(-2px);
+      border-color: rgba(24, 199, 255, .45);
+      background: rgba(255,255,255,.09);
+    }
+
+    .campaign-tab.active {
+      border-color: rgba(104, 242, 185, .62);
+      background:
+        linear-gradient(135deg, rgba(27, 207, 143, .16), rgba(24, 199, 255, .1)),
+        rgba(255,255,255,.09);
+      box-shadow: 0 22px 70px rgba(27, 207, 143, .16);
+    }
+
+    .team-mark {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: #031121;
+      background: linear-gradient(135deg, var(--mint), var(--cyan));
+      font-size: 1.1rem;
+      font-weight: 930;
+    }
+
+    .team-mark.food {
+      background: linear-gradient(135deg, var(--cream), var(--gold));
+    }
+
+    .campaign-name {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.05rem;
+      font-weight: 880;
+    }
+
+    .campaign-meta {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.35;
+    }
+
+    .tab-arrow {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: rgba(246,251,255,.78);
+      background: rgba(255,255,255,.06);
+      font-weight: 900;
+    }
+
+    .campaign-detail {
+      display: none;
+      grid-template-columns: minmax(0, .95fr) minmax(260px, .55fr);
+      gap: 20px;
+      padding: 4px 24px 24px;
+    }
+
+    .campaign-detail.active { display: grid; }
+
+    .active-pursuit {
+      min-height: 272px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(2, 8, 20, .34);
+    }
+
+    .pursuit-title {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .pursuit-title h3 {
+      font-size: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .progress {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--emerald), var(--cyan));
+      box-shadow: 0 0 22px rgba(24, 199, 255, .38);
+    }
+
+    .impact-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .impact-tile {
+      min-height: 98px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .impact-tile strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .impact-tile span {
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.35;
+    }
+
+    .pick-card,
+    .reward-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(2, 8, 20, .36);
+    }
+
+    .pick-card { margin-bottom: 16px; }
+
+    .pick-matchup {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .pick-team {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      font-weight: 860;
+    }
+
+    .pick-dot {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #031121;
+      background: var(--cyan);
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .pending {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(24, 199, 255, .36);
+      border-radius: 999px;
+      padding: 6px 9px;
+      color: #baf4ff;
+      background: rgba(24, 199, 255, .1);
+      font-size: .72rem;
+      font-weight: 880;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .pending::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 14px rgba(24, 199, 255, .82);
+    }
+
+    .reward-media {
+      min-height: 128px;
+      display: grid;
+      place-items: center;
+      margin: 14px 0 16px;
+      border: 1px solid rgba(244, 183, 67, .22);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(244,183,67,.28), transparent 36%),
+        linear-gradient(135deg, rgba(244,183,67,.14), rgba(24,199,255,.08));
+    }
+
+    .football {
+      width: 118px;
+      height: 58px;
+      position: relative;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8f5424, #d69040 52%, #7a421d);
+      box-shadow: 0 20px 38px rgba(0,0,0,.26);
+      transform: rotate(-12deg);
+    }
+
+    .football::before {
+      content: "";
+      position: absolute;
+      inset: 8px 50px;
+      border-left: 2px solid rgba(255,255,255,.78);
+      border-right: 2px solid rgba(255,255,255,.78);
+    }
+
+    .football::after {
+      content: "";
+      position: absolute;
+      left: 43px;
+      top: 26px;
+      width: 32px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 -7px 0 rgba(255,255,255,.7), 0 7px 0 rgba(255,255,255,.7);
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .locker-list,
+    .activity-list {
+      display: grid;
+      gap: 12px;
+      padding: 18px 22px 22px;
+    }
+
+    .list-item {
+      min-height: 68px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .item-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #031121;
+      background: linear-gradient(135deg, var(--mint), var(--cyan));
+      font-weight: 900;
+    }
+
+    .list-item strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: .94rem;
+    }
+
+    .list-item span {
+      display: block;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .operator-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(420px, .52fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .stat-card {
+      min-height: 166px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(2, 8, 20, .36);
+    }
+
+    .stat-card.major {
+      background:
+        radial-gradient(ellipse at 78% 12%, rgba(24, 199, 255, .2), transparent 38%),
+        rgba(2, 8, 20, .42);
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 3.4rem;
+      line-height: .98;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .stat-card.major .stat-value { font-size: 4rem; }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-weight: 720;
+    }
+
+    .operator-progress {
+      margin-top: 20px;
+    }
+
+    .funding-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .funding-chip {
+      min-height: 66px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .funding-chip strong,
+    .funding-chip span {
+      display: block;
+    }
+
+    .funding-chip strong {
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .funding-chip span {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 740;
+    }
+
+    .sharing-center {
+      padding: 22px;
+      margin-top: 22px;
+    }
+
+    .toolkit-alert {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 1px solid rgba(104, 242, 185, .26);
+      border-radius: 20px;
+      background: rgba(27, 207, 143, .09);
+    }
+
+    .alert-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #031121;
+      background: var(--mint);
+      font-weight: 920;
+    }
+
+    .toolkit-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .energy-chart {
+      height: 210px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      align-items: end;
+      gap: 12px;
+      padding: 22px;
+    }
+
+    .bar {
+      min-height: 32px;
+      border-radius: 999px 999px 8px 8px;
+      background: linear-gradient(180deg, var(--cyan), rgba(17,120,255,.46));
+      box-shadow: 0 0 24px rgba(24, 199, 255, .18);
+    }
+
+    .activity-list.operator .list-item {
+      grid-template-columns: auto 1fr;
+    }
+
+    .amount {
+      color: var(--mint);
+      font-weight: 900;
+    }
+
+    .reward-count {
+      color: var(--cream);
+      font-weight: 860;
+    }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 980px) {
+      h1 { font-size: 3rem; }
+
+      .view-head,
+      .fan-grid,
+      .operator-grid,
+      .switcher-hero,
+      .campaign-detail {
+        grid-template-columns: 1fr;
+      }
+
+      .account-chip {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .campaign-switcher { min-height: 0; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 28px, var(--max)); }
+
+      .nav {
+        min-height: 88px;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .brand { justify-content: center; }
+
+      .preview-toggle { width: 100%; }
+
+      .dashboard { padding: 20px 0 44px; }
+
+      .view-head {
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+        font-size: .72rem;
+      }
+
+      h1 { font-size: 1.92rem; }
+
+      .view-head p {
+        display: none;
+      }
+
+      .account-chip {
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 16px;
+      }
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+      }
+
+      .switcher-hero,
+      .campaign-tabs,
+      .campaign-detail,
+      .stat-grid,
+      .energy-chart {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .switcher-hero {
+        gap: 14px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .switcher-hero h2 {
+        margin-bottom: 12px;
+        font-size: 1.48rem;
+      }
+
+      .campaign-quick-list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        margin-top: 12px;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .campaign-quick-list::-webkit-scrollbar { display: none; }
+
+      .campaign-quick {
+        flex: 0 0 auto;
+        min-height: 48px;
+      }
+
+      .wallet-card {
+        order: -1;
+        min-height: 132px;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .campaign-tabs,
+      .stat-grid,
+      .impact-row,
+      .funding-breakdown {
+        grid-template-columns: 1fr;
+      }
+
+      .campaign-tab {
+        min-height: 108px;
+      }
+
+      .wallet-value,
+      .stat-value,
+      .stat-card.major .stat-value {
+        font-size: 2.35rem;
+      }
+
+      .list-item {
+        grid-template-columns: auto 1fr;
+      }
+
+      .pending {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="container nav" aria-label="Dashboard preview navigation">
+        <a class="brand" href="landing-page.html" aria-label="Sports Raise home">
+          <img src="assets/logo-main.svg" alt="" />
+          <span>Sports Raise</span>
+        </a>
+        <div class="preview-toggle" role="tablist" aria-label="Switch account preview">
+          <button class="toggle-button active" type="button" role="tab" aria-selected="true" aria-controls="fan-view" data-view="fan">Fan View</button>
+          <button class="toggle-button" type="button" role="tab" aria-selected="false" aria-controls="operator-view" data-view="operator">Operator View</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="dashboard active" id="fan-view" aria-labelledby="fan-title">
+        <div class="container">
+          <div class="view-head">
+            <div>
+              <div class="eyebrow">Supporter Account</div>
+              <h1 id="fan-title">David's campaigns, credits, picks, and rewards.</h1>
+              <p>A supporter account centers every active cause David backs, with the Campaign Switcher controlling wallet context, picks, impact, and rewards.</p>
+            </div>
+            <div class="account-chip" aria-label="Logged in supporter">
+              <div class="avatar fan">D</div>
+              <div>
+                <span class="chip-label">Logged in as</span>
+                <span class="chip-name">David</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fan-grid">
+            <section class="panel campaign-switcher" aria-labelledby="switcher-title">
+              <div class="switcher-hero">
+                <div>
+                  <div class="panel-kicker">Campaign Switcher</div>
+                  <h2 id="switcher-title">Choose the cause. The account updates around it.</h2>
+                  <div class="campaign-quick-list" role="list" aria-label="Quick campaign selector">
+                    <button class="campaign-quick active" type="button" data-campaign="riverside" aria-pressed="true">
+                      <span class="team-mark">RA</span>
+                      <span class="quick-copy">
+                        <strong>Riverside</strong>
+                        <span>820 credits</span>
+                      </span>
+                    </button>
+                    <button class="campaign-quick" type="button" data-campaign="food-bank" aria-pressed="false">
+                      <span class="team-mark food">FB</span>
+                      <span class="quick-copy">
+                        <strong>Food Bank</strong>
+                        <span>380 credits</span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <aside class="wallet-card" aria-label="Credit wallet">
+                  <div>
+                    <span class="wallet-value">1,200</span>
+                    <span class="wallet-label">Credits available</span>
+                  </div>
+                  <div class="wallet-breakdown">
+                    <div class="mini-stat">
+                      <strong>820</strong>
+                      <span>Riverside</span>
+                    </div>
+                    <div class="mini-stat">
+                      <strong>380</strong>
+                      <span>Food Bank</span>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+
+              <div class="campaign-tabs" role="tablist" aria-label="Active campaigns">
+                <button class="campaign-tab active" type="button" role="tab" aria-selected="true" aria-controls="campaign-riverside" data-campaign="riverside">
+                  <span class="team-mark">RA</span>
+                  <span>
+                    <span class="campaign-name">Riverside Athletics</span>
+                    <span class="campaign-meta">$68,420 raised / Fall Drive / 820 credits</span>
+                  </span>
+                  <span class="tab-arrow" aria-hidden="true">&gt;</span>
+                </button>
+                <button class="campaign-tab" type="button" role="tab" aria-selected="false" aria-controls="campaign-food-bank" data-campaign="food-bank">
+                  <span class="team-mark food">FB</span>
+                  <span>
+                    <span class="campaign-name">Local Food Bank</span>
+                    <span class="campaign-meta">$24,900 raised / Weekend Meals / 380 credits</span>
+                  </span>
+                  <span class="tab-arrow" aria-hidden="true">&gt;</span>
+                </button>
+              </div>
+
+              <div class="campaign-detail active" id="campaign-riverside" role="tabpanel">
+                <div class="active-pursuit">
+                  <div class="pursuit-title">
+                    <div>
+                      <div class="panel-kicker">Active Pursuit</div>
+                      <h3>Riverside Fall Drive</h3>
+                    </div>
+                    <span class="status">Live</span>
+                  </div>
+                  <div class="progress" aria-label="Riverside campaign progress">
+                    <span style="width: 68%;"></span>
+                  </div>
+                  <div class="impact-row" aria-label="Riverside impact gallery">
+                    <div class="impact-tile">
+                      <strong>5</strong>
+                      <span>new helmets funded</span>
+                    </div>
+                    <div class="impact-tile">
+                      <strong>18</strong>
+                      <span>travel seats covered</span>
+                    </div>
+                    <div class="impact-tile">
+                      <strong>42</strong>
+                      <span>athletes backed</span>
+                    </div>
+                  </div>
+                </div>
+
+                <aside>
+                  <div class="pick-card">
+                    <div class="panel-kicker">My Pick</div>
+                    <h3>Week 1: Falcons to Win</h3>
+                    <div class="pick-matchup">
+                      <div class="pick-team"><span class="pick-dot">F</span> Falcons</div>
+                      <span class="pending">Pending</span>
+                    </div>
+                    <p style="margin-bottom: 0; color: var(--muted);">Riverside vs. North Valley / Friday 7:30 PM</p>
+                  </div>
+                  <div class="reward-card">
+                    <div class="panel-kicker">Reward Shop Preview</div>
+                    <h3>Signed football</h3>
+                    <div class="reward-media" aria-hidden="true"><div class="football"></div></div>
+                    <button class="button" type="button">Redeem / 500 Credits</button>
+                  </div>
+                </aside>
+              </div>
+
+              <div class="campaign-detail" id="campaign-food-bank" role="tabpanel" hidden>
+                <div class="active-pursuit">
+                  <div class="pursuit-title">
+                    <div>
+                      <div class="panel-kicker">Active Pursuit</div>
+                      <h3>Weekend Meals Match</h3>
+                    </div>
+                    <span class="status">Live</span>
+                  </div>
+                  <div class="progress" aria-label="Food bank campaign progress">
+                    <span style="width: 74%;"></span>
+                  </div>
+                  <div class="impact-row" aria-label="Food bank impact gallery">
+                    <div class="impact-tile">
+                      <strong>20</strong>
+                      <span>meals funded by David</span>
+                    </div>
+                    <div class="impact-tile">
+                      <strong>8</strong>
+                      <span>families covered</span>
+                    </div>
+                    <div class="impact-tile">
+                      <strong>3</strong>
+                      <span>match weeks joined</span>
+                    </div>
+                  </div>
+                </div>
+
+                <aside>
+                  <div class="pick-card">
+                    <div class="panel-kicker">My Pick</div>
+                    <h3>Saturday Match: Eastside to Win</h3>
+                    <div class="pick-matchup">
+                      <div class="pick-team"><span class="pick-dot">E</span> Eastside</div>
+                      <span class="pending">Pending</span>
+                    </div>
+                    <p style="margin-bottom: 0; color: var(--muted);">City Cup meal match / Saturday 4:00 PM</p>
+                  </div>
+                  <div class="reward-card">
+                    <div class="panel-kicker">Reward Shop Preview</div>
+                    <h3>Community dinner pass</h3>
+                    <div class="reward-media" aria-hidden="true">
+                      <svg width="106" height="86" viewBox="0 0 106 86" fill="none" aria-hidden="true">
+                        <rect x="13" y="22" width="80" height="48" rx="14" fill="#F4B743" opacity=".95"/>
+                        <path d="M28 43h50M34 55h38" stroke="#07182A" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="28" cy="22" r="13" fill="#68F2B9"/>
+                        <circle cx="78" cy="70" r="10" fill="#18C7FF"/>
+                      </svg>
+                    </div>
+                    <button class="button" type="button">Redeem / 300 Credits</button>
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <aside class="side-stack">
+              <section class="panel" aria-labelledby="locker-title">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-kicker">The Locker</div>
+                    <h2 id="locker-title">Upcoming picks</h2>
+                  </div>
+                </div>
+                <div class="locker-list">
+                  <div class="list-item">
+                    <div class="item-icon">F</div>
+                    <div>
+                      <strong>Falcons to Win</strong>
+                      <span>Week 1 / Riverside Athletics</span>
+                    </div>
+                    <span class="pending">Pending</span>
+                  </div>
+                  <div class="list-item">
+                    <div class="item-icon">E</div>
+                    <div>
+                      <strong>Eastside to Win</strong>
+                      <span>Weekend Meals Match</span>
+                    </div>
+                    <span class="pending">Pending</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel" aria-labelledby="impact-title">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-kicker">Impact Gallery</div>
+                    <h2 id="impact-title">Giving translated</h2>
+                  </div>
+                </div>
+                <div class="locker-list">
+                  <div class="list-item">
+                    <div class="item-icon">$</div>
+                    <div>
+                      <strong>$240 contributed</strong>
+                      <span>Across two active campaigns</span>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <div class="item-icon">20</div>
+                    <div>
+                      <strong>20 meals provided</strong>
+                      <span>Local Food Bank</span>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <div class="item-icon">5</div>
+                    <div>
+                      <strong>5 jerseys funded</strong>
+                      <span>Riverside Athletics</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard" id="operator-view" aria-labelledby="operator-title" hidden>
+        <div class="container">
+          <div class="view-head">
+            <div>
+              <div class="eyebrow">Campaign President</div>
+              <h1 id="operator-title">Riverside Fall Drive control room.</h1>
+              <p>Coach Sarah sees fundraising momentum, game-day engagement, supporter activity, sharing assets, and reward inventory from one account workspace.</p>
+            </div>
+            <div class="account-chip" aria-label="Logged in operator">
+              <div class="avatar">CS</div>
+              <div>
+                <span class="chip-label">Logged in as</span>
+                <span class="chip-name">Coach Sarah / Riverside Athletics</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="operator-grid">
+            <div>
+              <section class="panel" aria-labelledby="overview-title">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-kicker">Impact Overview</div>
+                    <h2 id="overview-title">Riverside Fall Drive</h2>
+                  </div>
+                  <span class="status">Live</span>
+                </div>
+                <div class="stat-grid">
+                  <div class="stat-card major">
+                    <div>
+                      <span class="stat-value">$68,420</span>
+                      <span class="stat-label">Raised of $100,000 target</span>
+                    </div>
+                    <div class="operator-progress">
+                      <div class="progress" aria-label="Campaign progress">
+                        <span style="width: 68%;"></span>
+                      </div>
+                    </div>
+                    <div class="funding-breakdown" aria-label="Campaign funding breakdown">
+                      <div class="funding-chip">
+                        <strong>$68,420</strong>
+                        <span>Raised</span>
+                      </div>
+                      <div class="funding-chip">
+                        <strong>$31,580</strong>
+                        <span>Remaining</span>
+                      </div>
+                      <div class="funding-chip">
+                        <strong>$100,000</strong>
+                        <span>Goal</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card">
+                    <div>
+                      <span class="stat-value">312</span>
+                      <span class="stat-label">Supporters</span>
+                    </div>
+                    <div>
+                      <span class="reward-count">34 rewards</span>
+                      <span class="stat-label">Remaining in vault</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel sharing-center" aria-labelledby="sharing-title">
+                <div class="toolkit-alert">
+                  <div class="alert-icon">OK</div>
+                  <div>
+                    <div class="panel-kicker">Sharing Center</div>
+                    <h2 id="sharing-title">Toolkit ready</h2>
+                    <p style="margin: 8px 0 0; color: var(--muted);">Social overlays and email templates are generated from the latest campaign milestone.</p>
+                  </div>
+                </div>
+                <div class="toolkit-actions">
+                  <button class="button" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                    Generate Reel
+                  </button>
+                  <button class="button secondary" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 7h10v10H7V7Zm-3 3h2v9h9v2H4V10Zm5-5V3h11v11h-2V5H9Z" fill="currentColor"/></svg>
+                    Copy Email
+                  </button>
+                </div>
+              </section>
+            </div>
+
+            <aside class="side-stack">
+              <section class="panel" aria-labelledby="energy-title">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-kicker">Engagement Delta</div>
+                    <h2 id="energy-title">Game-Day Energy</h2>
+                  </div>
+                </div>
+                <div class="energy-chart" aria-label="Weekly pick activity graph">
+                  <div class="bar" style="height: 44%;"></div>
+                  <div class="bar" style="height: 56%;"></div>
+                  <div class="bar" style="height: 38%;"></div>
+                  <div class="bar" style="height: 72%;"></div>
+                  <div class="bar" style="height: 61%;"></div>
+                  <div class="bar" style="height: 88%;"></div>
+                  <div class="bar" style="height: 76%;"></div>
+                </div>
+              </section>
+
+              <section class="panel" aria-labelledby="recent-title">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-kicker">Recent Picks</div>
+                    <h2 id="recent-title">Live activity feed</h2>
+                  </div>
+                </div>
+                <div class="activity-list operator">
+                  <div class="list-item">
+                    <div class="item-icon">JD</div>
+                    <div>
+                      <strong>John D. donated <span class="amount">$200</span></strong>
+                      <span>2 min ago / Picked Riverside over North Valley</span>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <div class="item-icon">AM</div>
+                    <div>
+                      <strong>Avery M. donated <span class="amount">$75</span></strong>
+                      <span>7 min ago / Picked Falcons to Win</span>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <div class="item-icon">LR</div>
+                    <div>
+                      <strong>Leah R. donated <span class="amount">$120</span></strong>
+                      <span>14 min ago / Unlocked 600 campaign credits</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const viewButtons = document.querySelectorAll("[data-view]");
+    const dashboards = {
+      fan: document.getElementById("fan-view"),
+      operator: document.getElementById("operator-view")
+    };
+
+    viewButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const view = button.dataset.view;
+
+        viewButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-selected", String(active));
+        });
+
+        Object.entries(dashboards).forEach(([name, panel]) => {
+          const active = name === view;
+          panel.classList.toggle("active", active);
+          panel.hidden = !active;
+        });
+      });
+    });
+
+    const campaignTabs = document.querySelectorAll("[data-campaign]");
+    const campaignPanels = {
+      riverside: document.getElementById("campaign-riverside"),
+      "food-bank": document.getElementById("campaign-food-bank")
+    };
+
+    function setCampaign(campaign) {
+      campaignTabs.forEach((item) => {
+        const active = item.dataset.campaign === campaign;
+        item.classList.toggle("active", active);
+        if (item.getAttribute("role") === "tab") {
+          item.setAttribute("aria-selected", String(active));
+        }
+        if (item.hasAttribute("aria-pressed")) {
+          item.setAttribute("aria-pressed", String(active));
+        }
+      });
+
+      Object.entries(campaignPanels).forEach(([name, panel]) => {
+        const active = name === campaign;
+        panel.classList.toggle("active", active);
+        panel.hidden = !active;
+      });
+    }
+
+    campaignTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        setCampaign(tab.dataset.campaign);
+      });
+    });
+  </script>
+</body>
+</html>

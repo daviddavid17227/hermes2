@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sports Raise SR route monogram logo">
+  <defs>
+    <linearGradient id="sr-monogram-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#18C7FF"/>
+      <stop offset="0.55" stop-color="#1178FF"/>
+      <stop offset="1" stop-color="#F4B743"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="104" height="104" rx="24" fill="#07182A"/>
+  <path d="M83 34H55c-13 0-22 7-22 18s9 16 22 16h18c12 0 20 6 20 17s-9 18-23 18H38" fill="none" stroke="url(#sr-monogram-gradient)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M64 32v72" stroke="#68F2B9" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+  <circle cx="87" cy="34" r="6" fill="#F4B743"/>
+  <circle cx="38" cy="103" r="6" fill="#1BCF8F"/>
+</svg>
